@@ -1,6 +1,6 @@
 package buildings;
 
-public class Market extends EconomicBuildings {
+public class Market extends EconomicBuilding {
 
 	public Market(int cost, int upgradeCost) {
 		super(cost, upgradeCost);

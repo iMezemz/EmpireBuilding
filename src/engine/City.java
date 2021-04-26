@@ -2,6 +2,10 @@ package engine;
 
 import java.util.ArrayList;
 
+import units.*;
+
+import buildings.*;
+
 public class City {
 	private String name;
 	private ArrayList<EconomicBuilding> economicalBuildings;
@@ -13,8 +17,8 @@ public class City {
 	public City(String name){
 		this.name = name;
 		economicalBuildings = new ArrayList<EconomicBuilding>();
-		militaryBuildings = new ArrayList<militaryBuilding>();
-		defendingArmy = new Army();
+		militaryBuildings = new ArrayList<MilitaryBuilding>();
+		defendingArmy = new Army(this.name);
 		turnsUnderSiege = 0;
 		underSiege = false;
 	}

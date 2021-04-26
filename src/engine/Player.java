@@ -2,6 +2,8 @@ package engine;
 
 import java.util.ArrayList;
 
+import units.*;
+
 public class Player {
 	private String name;
 	private ArrayList<City> controlledCities;

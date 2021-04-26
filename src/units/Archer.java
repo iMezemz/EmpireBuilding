@@ -7,7 +7,7 @@ public class Archer extends Unit {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	// use csv file
+    //	BufferReader bf = new BufferReader(new FileReader (pathToCsv));
+	// csv file
 	
 }
