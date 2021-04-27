@@ -11,9 +11,10 @@ private final int maxToHold;
 
 public Army(String currentLocation) {
 	this.currentStatus = Status.IDLE;
-	this.units = new ArrayList<>();
+	this.units = new ArrayList<Unit>();
 	this.distanceToTarget = -1;
 	this.target = "";
+	this.currentLocation = currentLocation;
 	this.maxToHold = 10;
 	
 }

@@ -2,15 +2,15 @@ package buildings;
 
 public abstract class Building {
 	private int cost;
-	private int level; 
+	private int level;
 	private int upgradeCost;
 	private boolean coolDown;
-	
-	public Building (int cost, int upgradeCost) {
-		 this.cost = cost ;
-		 this.upgradeCost = upgradeCost; 
-		 level = 1;
-		 coolDown = true;
+
+	public Building(int cost, int upgradeCost) {
+		this.cost = cost;
+		this.upgradeCost = upgradeCost;
+		level = 1;
+		coolDown = true;
 	}
 
 	public int getLevel() {
