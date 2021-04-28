@@ -4,7 +4,7 @@ import java.util.*;
 public class Army {
 private Status currentStatus;
 private ArrayList<Unit> units;
-private int distanceToTarget;
+private int distancetoTarget;
 private String target;
 private String currentLocation;
 private final int maxToHold;
@@ -12,7 +12,7 @@ private final int maxToHold;
 public Army(String currentLocation) {
 	this.currentStatus = Status.IDLE;
 	this.units = new ArrayList<Unit>();
-	this.distanceToTarget = -1;
+	this.distancetoTarget = -1;
 	this.target = "";
 	this.currentLocation = currentLocation;
 	this.maxToHold = 10;
@@ -36,11 +36,11 @@ public void setUnits(ArrayList<Unit> units) {
 }
 
 public int getDistanceToTarget() {
-	return distanceToTarget;
+	return distancetoTarget;
 }
 
 public void setDistanceToTarget(int distanceToTarget) {
-	this.distanceToTarget = distanceToTarget;
+	this.distancetoTarget = distanceToTarget;
 }
 
 public String getTarget() {
