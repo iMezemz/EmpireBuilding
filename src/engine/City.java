@@ -2,9 +2,9 @@ package engine;
 
 import java.util.ArrayList;
 
-import units.*;
-
-import buildings.*;
+import units.Army;
+import buildings.EconomicBuilding;
+import buildings.MilitaryBuilding;
 
 public class City {
 	private String name;
@@ -13,15 +13,18 @@ public class City {
 	private Army defendingArmy;
 	private int turnsUnderSiege;
 	private boolean underSiege;
-	
-	public City(String name){
+
+	// No initiallization for defending army because the city may or may not be
+	// defending
+	// (i.e. player controlled)
+	public City(String name) {
 		this.name = name;
 		economicalBuildings = new ArrayList<EconomicBuilding>();
 		militaryBuildings = new ArrayList<MilitaryBuilding>();
-		defendingArmy = new Army(this.name);
 		turnsUnderSiege = 0;
 		underSiege = false;
 	}
+
 	public Army getDefendingArmy() {
 		return defendingArmy;
 	}
@@ -50,6 +53,14 @@ public class City {
 		return name;
 	}
 
+	// written for convenience of loadArmy and loadCitiesAndDistances methods 
+	//(contains and indexOf method mainly)
+	// (MAY NEED IMPROVMENT LATER)
+	public boolean equals(Object o) {
+		City c = (City) o;
+		return c.name.equals(name);
+	}
+
 	public ArrayList<EconomicBuilding> getEconomicalBuildings() {
 		return economicalBuildings;
 	}
@@ -58,4 +69,4 @@ public class City {
 		return militaryBuildings;
 	}
 
-	}
+}

@@ -6,5 +6,5 @@ public class Barracks extends MilitaryBuilding {
 		super(2000, 1000, 500);
 
 	}
-	
+
 }

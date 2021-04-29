@@ -1,7 +1,5 @@
 package units;
 
 public enum Status {
-	IDLE,
-	MARCHING,
-	BESIEGING
+	IDLE, MARCHING, BESIEGING
 }

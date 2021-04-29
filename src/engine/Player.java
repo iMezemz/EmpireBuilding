@@ -10,13 +10,25 @@ public class Player {
 	private ArrayList<Army> controlledArmies;
 	private double treasury;
 	private double food;
-	
-	public Player(String name){
+
+	public Player(String name) {
 		this.name = name;
 		controlledCities = new ArrayList<City>();
 		controlledArmies = new ArrayList<Army>();
 		treasury = 0.0;
 		food = 0.0;
+	}
+	// New constructor written to initiallize controlledCities array since the variable is read-only
+	// ControlledCities should only contain the playerCity at the start of the game
+	public Player(String name, String startingCity) {
+		this.name = name;
+		controlledCities = new ArrayList<City>();
+		City c = new City(startingCity);
+		controlledCities.add(c);
+		controlledArmies = new ArrayList<Army>();
+		treasury = 0.0;
+		food = 0.0;
+
 	}
 
 	public double getTreasury() {
@@ -46,6 +58,5 @@ public class Player {
 	public ArrayList<Army> getControlledArmies() {
 		return controlledArmies;
 	}
-	
-	
+
 }
