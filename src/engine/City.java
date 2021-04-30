@@ -54,9 +54,11 @@ public class City {
 	}
 
 	// written for convenience of loadArmy and loadCitiesAndDistances methods 
-	//(contains and indexOf method mainly)
+	//(mainly for contains and indexOf)
 	// (MAY NEED IMPROVMENT LATER)
 	public boolean equals(Object o) {
+		if(!(o instanceof City))
+			return false;
 		City c = (City) o;
 		return c.name.equals(name);
 	}

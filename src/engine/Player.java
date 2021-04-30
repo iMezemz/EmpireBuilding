@@ -18,16 +18,16 @@ public class Player {
 		treasury = 0.0;
 		food = 0.0;
 	}
-	// New constructor written to initiallize controlledCities array since the variable is read-only
-	// ControlledCities should only contain the playerCity at the start of the game
+
+	// New constructor written to initiallize controlledCities array since the
+	// variable is read-only
+	// ControlledCities should only contain the playerCity at the start of the
+	// game
 	public Player(String name, String startingCity) {
-		this.name = name;
-		controlledCities = new ArrayList<City>();
+
+		this(name);
 		City c = new City(startingCity);
 		controlledCities.add(c);
-		controlledArmies = new ArrayList<Army>();
-		treasury = 0.0;
-		food = 0.0;
 
 	}
 

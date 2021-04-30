@@ -105,8 +105,9 @@ public class Game {
 		// non duplicated city objects
 		for (int i = 0; i < distanceList.size(); i++) {
 			for (int j = 0; j < 2; j++) {
-				if (!availableCities.contains(new City(distanceList.get(i)[j]))) {
-					availableCities.add(new City(distanceList.get(i)[j]));
+				City c = new City(distanceList.get(i)[j]);
+				if (!availableCities.contains(c)) {
+					availableCities.add(c);
 				}
 			}
 
