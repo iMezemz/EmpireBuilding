@@ -95,7 +95,7 @@ public class Game {
 
 	}
 
-	public void loadCitiesAndDistances() throws IOException {
+	private void loadCitiesAndDistances() throws IOException {
 
 		// Loading distance resources
 		ArrayList<String[]> distanceList = ReadingCSVFile
