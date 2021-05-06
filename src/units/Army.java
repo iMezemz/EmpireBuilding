@@ -36,13 +36,6 @@ public class Army {
 		this.units = units;
 	}
 
-	public int getDistanceToTarget() {
-		return distancetoTarget;
-	}
-
-	public void setDistanceToTarget(int distanceToTarget) {
-		this.distancetoTarget = distanceToTarget;
-	}
 
 	public String getTarget() {
 		return target;
@@ -62,6 +55,14 @@ public class Army {
 
 	public int getMaxToHold() {
 		return maxToHold;
+	}
+
+	public int getDistancetoTarget() {
+		return distancetoTarget;
+	}
+
+	public void setDistancetoTarget(int distancetoTarget) {
+		this.distancetoTarget = distancetoTarget;
 	}
 
 }

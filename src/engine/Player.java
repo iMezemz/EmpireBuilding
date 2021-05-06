@@ -23,10 +23,10 @@ public class Player {
 	// variable is read-only
 	// ControlledCities should only contain the playerCity at the start of the
 	// game
-	public Player(String name, String startingCity) {
+	public void addBaseCity(String startingCity) {
 
-		this(name);
 		City c = new City(startingCity);
+		c.setDefendingArmy(null);
 		controlledCities.add(c);
 
 	}

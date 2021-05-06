@@ -20,6 +20,7 @@ public class City {
 	public City(String name) {
 		this.name = name;
 		economicalBuildings = new ArrayList<EconomicBuilding>();
+		defendingArmy = new Army(name);
 		militaryBuildings = new ArrayList<MilitaryBuilding>();
 		turnsUnderSiege = 0;
 		underSiege = false;

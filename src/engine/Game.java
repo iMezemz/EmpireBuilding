@@ -13,7 +13,9 @@ public class Game {
 	private int currentTurnCount;
 
 	public Game(String playerName, String playerCity) throws IOException {
-		player = new Player(playerName, playerCity);
+		player = new Player(playerName);
+		
+		player.addBaseCity(playerCity);
 
 		maxTurnCount = 30;
 
@@ -24,12 +26,16 @@ public class Game {
 		distances = new ArrayList<Distance>();
 
 		loadCitiesAndDistances();
+		
+		availableCities.get(availableCities
+				.indexOf(new City(playerCity)))
+				.setDefendingArmy(null);
 
 		// Generate defending armies for non player controlled cities only
 		for (int i = 0; i < availableCities.size(); i++) {
 			String name = availableCities.get(i).getName();
 			if (!playerCity.equals(name)) {
-				loadArmy(name, name + ".csv");
+				loadArmy(name, name.toLowerCase() + "_army.csv");
 			}
 		}
 	}
