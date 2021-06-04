@@ -1,5 +1,9 @@
 package units;
 
+import java.io.IOException;
+
+import exceptions.FriendlyFireException;
+
 public abstract class Unit {
 
 	private int level;
@@ -8,6 +12,16 @@ public abstract class Unit {
 	private double idleUpkeep;
 	private double marchingUpkeep;
 	private double siegeUpkeep;
+	private Army parentArmy;
+	
+
+	public Army getParentArmy() {
+		return parentArmy;
+	}
+
+	public void setParentArmy(Army parentArmy) {
+		this.parentArmy = parentArmy;
+	}
 
 	public int getLevel() {
 		return level;
@@ -44,6 +58,12 @@ public abstract class Unit {
 		this.idleUpkeep = idleUpkeep;
 		this.marchingUpkeep = marchingUpkeep;
 		this.siegeUpkeep = siegeUpkeep;
+	}
+	
+	public void attack(Unit target) throws FriendlyFireException, IOException{
+		if(this.currentSoldierCount == 0) {
+			throw new FriendlyFireException();
+		}
 	}
 
 }
