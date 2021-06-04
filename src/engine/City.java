@@ -14,9 +14,7 @@ public class City {
 	private int turnsUnderSiege;
 	private boolean underSiege;
 
-	// No initiallization for defending army because the city may or may not be
-	// defending
-	// (i.e. player controlled)
+	
 	public City(String name) {
 		this.name = name;
 		economicalBuildings = new ArrayList<EconomicBuilding>();

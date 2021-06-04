@@ -1,5 +1,8 @@
 package buildings;
 
+import exceptions.BuildingInCoolDownException;
+import exceptions.MaxLevelException;
+
 public abstract class Building {
 	private int cost;
 	private int level;
@@ -39,6 +42,15 @@ public abstract class Building {
 
 	public int getCost() {
 		return cost;
+	}
+
+	public void upgrade() throws BuildingInCoolDownException, MaxLevelException{
+	 if(isCoolDown())
+		 throw new BuildingInCoolDownException();
+	 if(this.getLevel()>2)
+		 throw new MaxLevelException();
+	 this.setLevel(getLevel() + 1);
+	 this.setCoolDown(true);
 	}
 
 }

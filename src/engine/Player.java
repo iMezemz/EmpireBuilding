@@ -2,6 +2,7 @@ package engine;
 
 import java.util.ArrayList;
 
+
 import units.*;
 
 public class Player {
@@ -19,7 +20,7 @@ public class Player {
 		food = 0.0;
 	}
 
-	// New constructor written to initiallize controlledCities array since the
+	// New constructor written to initialise controlledCities array since the
 	// variable is read-only
 	// ControlledCities should only contain the playerCity at the start of the
 	// game
@@ -58,5 +59,7 @@ public class Player {
 	public ArrayList<Army> getControlledArmies() {
 		return controlledArmies;
 	}
+
+	
 
 }
