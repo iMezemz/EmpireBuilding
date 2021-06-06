@@ -282,14 +282,5 @@ public class Game {
 		return maxTurnCount;
 	}
 
-	public void targetCity(Army army, String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void endTurn() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

@@ -2,9 +2,8 @@ package engine;
 
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 import buildings.Building;
-=======
+
 import buildings.ArcheryRange;
 import buildings.Barracks;
 import buildings.Building;
@@ -20,7 +19,6 @@ import exceptions.MaxLevelException;
 import exceptions.MaxRecruitedException;
 import exceptions.NotEnoughGoldException;
 import exceptions.TargetNotReachedException;
->>>>>>> 59263bc81a758411318d9db49c39593875563882
 import units.*;
 import engine.City;
 

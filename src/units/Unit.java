@@ -62,7 +62,7 @@ public abstract class Unit {
 		this.currentSoldierCount = maxSoldierCount;
 	}
 	
-<<<<<<< HEAD
+
 
 	
 
