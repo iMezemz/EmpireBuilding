@@ -59,30 +59,15 @@ public abstract class Unit {
 		this.idleUpkeep = idleUpkeep;
 		this.marchingUpkeep = marchingUpkeep;
 		this.siegeUpkeep = siegeUpkeep;
+		this.currentSoldierCount = maxSoldierCount;
 	}
 	
+<<<<<<< HEAD
 
 	
 
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + currentSoldierCount;
-		long temp;
-		temp = Double.doubleToLongBits(idleUpkeep);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + level;
-		temp = Double.doubleToLongBits(marchingUpkeep);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + maxSoldierCount;
-		result = prime * result + ((parentArmy == null) ? 0 : parentArmy.hashCode());
-		temp = Double.doubleToLongBits(siegeUpkeep);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -112,8 +97,9 @@ public abstract class Unit {
 		return true;
 	}
 
-	public void attack(Unit target) throws FriendlyFireException, IOException{//when currentSoldierCount = 	remove the unit from itd parentArmy
-		if(target.getParentArmy().equals(this.getParentArmy())) {
+	
+	public void attack(Unit target) throws FriendlyFireException{
+if(target.getParentArmy().equals(this.getParentArmy())) {
 			throw new FriendlyFireException();
 		}
 		

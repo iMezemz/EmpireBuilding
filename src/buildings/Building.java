@@ -49,13 +49,13 @@ public abstract class Building {
 	
 	
 
-	public void upgrade() throws BuildingInCoolDownException, MaxLevelException{
-	 if(isCoolDown())
-		 throw new BuildingInCoolDownException();
-	 if(this.getLevel()>2)
-		 throw new MaxLevelException();
-	 this.setLevel(getLevel() + 1);
-	 this.setCoolDown(true);
+	public void upgrade() throws BuildingInCoolDownException, MaxLevelException {
+		if (this.isCoolDown())
+			throw new BuildingInCoolDownException();
+		if (this.getLevel() > 2)
+			throw new MaxLevelException();
+		this.setLevel(this.getLevel() + 1);
+		this.setCoolDown(true);
 	}
 
 }
