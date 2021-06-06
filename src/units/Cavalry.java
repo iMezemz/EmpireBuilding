@@ -12,7 +12,7 @@ public class Cavalry extends Unit {
 
 	}
 	
-	public void attack(Unit target) throws FriendlyFireException, IOException{
+	public void attack(Unit target) throws FriendlyFireException{
 		//ArrayList<String[]> Archers_Attack = ReadingCSVFile.readFile("archer_attack.csv");
 		double factor=1;
 		if (target instanceof Archer) {

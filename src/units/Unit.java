@@ -58,9 +58,10 @@ public abstract class Unit {
 		this.idleUpkeep = idleUpkeep;
 		this.marchingUpkeep = marchingUpkeep;
 		this.siegeUpkeep = siegeUpkeep;
+		this.currentSoldierCount = maxSoldierCount;
 	}
 	
-	public void attack(Unit target) throws FriendlyFireException, IOException{
+	public void attack(Unit target) throws FriendlyFireException{
 		if(this.currentSoldierCount == 0) {
 			throw new FriendlyFireException();
 		}
