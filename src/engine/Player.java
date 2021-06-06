@@ -2,8 +2,19 @@ package engine;
 
 import java.util.ArrayList;
 
-
+import buildings.ArcheryRange;
+import buildings.Barracks;
+import buildings.Building;
+import buildings.EconomicBuilding;
+import buildings.Farm;
+import buildings.Market;
+import buildings.MilitaryBuilding;
+import buildings.Stable;
+import exceptions.BuildingInCoolDownException;
+import exceptions.MaxRecruitedException;
+import exceptions.NotEnoughGoldException;
 import units.*;
+import engine.City;
 
 public class Player {
 	private String name;
@@ -59,7 +70,95 @@ public class Player {
 	public ArrayList<Army> getControlledArmies() {
 		return controlledArmies;
 	}
+	
+	public void recruitUnit(String type,String cityName) throws
+	BuildingInCoolDownException, MaxRecruitedException, NotEnoughGoldException {
+		Unit toBeRecruited = null;
+		for(City c : this.getControlledCities()) {
+			if(cityName == c.getName()) {
+				double recruitmentCost = 0;
+				switch(type) {
+				case "Archer": 
+					for(MilitaryBuilding b : c.getMilitaryBuildings()) {
+						if(b instanceof ArcheryRange) {
+							toBeRecruited = b.recruit();							
+							recruitmentCost = b.getRecruitmentCost();
+						}
+					}
+					break;
+				case "Infantry": 
+					for(MilitaryBuilding b : c.getMilitaryBuildings()) {
+						if(b instanceof Barracks) {
+							toBeRecruited = b.recruit();
+							recruitmentCost = b.getRecruitmentCost();
+						}
+					}
+					break;
+				case "Cavalry": 
+					for(MilitaryBuilding b : c.getMilitaryBuildings()) {
+						if(b instanceof Stable) {
+							toBeRecruited = b.recruit();
+							
+							recruitmentCost = b.getRecruitmentCost();
+						}
+					}
+					break;
+					
+				}
+				if (recruitmentCost > treasury) {
+					throw new NotEnoughGoldException() ;
+				}
+				treasury -= recruitmentCost;
+				toBeRecruited.setParentArmy(c.getDefendingArmy());
+				c.getDefendingArmy().getUnits().add(toBeRecruited);
+				
+			}
+			}
+	}	
+	
+	public void build(String type,String cityName) throws NotEnoughGoldException{
+		for(City c : this.getControlledCities()) {
+			if(cityName == c.getName()) {
+				int BuildingCost = 0;
+				Building newBuilding = null;
+				switch(type) {
+				
+				case"Farm": newBuilding = new Farm();
+							BuildingCost = newBuilding.getCost();
+					break;
+				case"Market": newBuilding = new Market();
+							  BuildingCost = newBuilding.getCost();
+					break;
+				case"Stable": newBuilding = new Stable();
+							BuildingCost = newBuilding.getCost();
+					break;
+				case"ArcheryRange":	newBuilding = new ArcheryRange();
+									BuildingCost = newBuilding.getCost();
+					break;
+				case"Barracks": newBuilding = new Barracks();
+								BuildingCost = newBuilding.getCost();
+					break;
+				}
+				newBuilding.setCoolDown(true);
+				if( newBuilding instanceof MilitaryBuilding) {
+					c.getMilitaryBuildings().add((MilitaryBuilding) newBuilding);
+				}
+				else if(newBuilding instanceof EconomicBuilding) {
+					c.getEconomicalBuildings().add((EconomicBuilding) newBuilding );
+				}
+				if (BuildingCost > treasury) {
+					throw new NotEnoughGoldException() ;
+				}
+				treasury -= BuildingCost;
+			}
+		}
+			}
+	}
+			
+	
+
+		
 
 	
 
-}
+
