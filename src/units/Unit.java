@@ -50,6 +50,7 @@ public abstract class Unit {
 	public double getSiegeUpkeep() {
 		return siegeUpkeep;
 	}
+	
 
 	public Unit(int level, int maxSoldierCount, double idleUpkeep,
 			double marchingUpkeep, double siegeUpkeep) {
@@ -60,9 +61,65 @@ public abstract class Unit {
 		this.siegeUpkeep = siegeUpkeep;
 	}
 	
-	public void attack(Unit target) throws FriendlyFireException, IOException{
-		if(this.currentSoldierCount == 0) {
+
+	
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + currentSoldierCount;
+		long temp;
+		temp = Double.doubleToLongBits(idleUpkeep);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + level;
+		temp = Double.doubleToLongBits(marchingUpkeep);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + maxSoldierCount;
+		result = prime * result + ((parentArmy == null) ? 0 : parentArmy.hashCode());
+		temp = Double.doubleToLongBits(siegeUpkeep);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Unit other = (Unit) obj;
+		if (currentSoldierCount != other.currentSoldierCount)
+			return false;
+		if (Double.doubleToLongBits(idleUpkeep) != Double.doubleToLongBits(other.idleUpkeep))
+			return false;
+		if (level != other.level)
+			return false;
+		if (Double.doubleToLongBits(marchingUpkeep) != Double.doubleToLongBits(other.marchingUpkeep))
+			return false;
+		if (maxSoldierCount != other.maxSoldierCount)
+			return false;
+		if (parentArmy == null) {
+			if (other.parentArmy != null)
+				return false;
+		} else if (!parentArmy.equals(other.parentArmy))
+			return false;
+		if (Double.doubleToLongBits(siegeUpkeep) != Double.doubleToLongBits(other.siegeUpkeep))
+			return false;
+		return true;
+	}
+
+	public void attack(Unit target) throws FriendlyFireException, IOException{//when currentSoldierCount = 	remove the unit from itd parentArmy
+		if(target.getParentArmy().equals(this.getParentArmy())) {
 			throw new FriendlyFireException();
+		}
+		
+		if(target.getCurrentSoldierCount() == 0) {
+			Army targetParentArmy = target.getParentArmy();
+			targetParentArmy.getUnits().remove(target);
 		}
 	}
 

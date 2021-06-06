@@ -41,8 +41,13 @@ public abstract class Building {
 	}
 
 	public int getCost() {
+		
 		return cost;
+		
+		
 	}
+	
+	
 
 	public void upgrade() throws BuildingInCoolDownException, MaxLevelException{
 	 if(isCoolDown())

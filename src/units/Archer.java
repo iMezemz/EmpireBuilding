@@ -17,6 +17,7 @@ public class Archer extends Unit {
 		//ArrayList<String[]> Archers_Attack = ReadingCSVFile.readFile("archer_attack.csv");
 		double factor=1;
 		if (target instanceof Archer) {
+			Archer A = (Archer) target;
 			switch(this.getLevel()) {
 			case 1:
 				factor = 0.3;
@@ -33,6 +34,7 @@ public class Archer extends Unit {
 			}}
 		
 		if (target instanceof Infantry) {
+			Infantry I = (Infantry) target;
 			switch(this.getLevel()) {
 			case 1:
 				factor = 0.2;
@@ -48,6 +50,7 @@ public class Archer extends Unit {
 				
 			}}
 		if (target instanceof Cavalry) {
+			Cavalry C = (Cavalry) target;
 			switch(this.getLevel()) {
 			case 1:
 				factor = 0.1;

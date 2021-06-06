@@ -114,6 +114,7 @@ public class Game {
 				City c = new City(distanceList.get(i)[j]);
 				if (!availableCities.contains(c)) {
 					availableCities.add(c);
+					
 				}
 			}
 
@@ -137,6 +138,45 @@ public class Game {
 			this.distances.add(toBeInserted);
 		}
 	}
+	
+	public void occupy(Army a, String cityName) {
+		for(City c: availableCities) {
+			if(c.getName().equals(cityName)) {
+				player.getControlledCities().add(c);
+				c.setDefendingArmy(a);
+				c.setUnderSiege(true);
+				c.setTurnsUnderSiege(0);
+			}
+			
+		}
+			
+		
+		
+	}
+	
+	public boolean isGameOver() { 
+		boolean finalFlag = false;
+		if(currentTurnCount > maxTurnCount) {
+			finalFlag = true;
+		}
+		
+		for(City c: availableCities) { // compare all cities in controlled cities to cities in available cities
+			if(player.getControlledCities().contains(c)) {
+				finalFlag = true;
+			}
+			else {
+				finalFlag = false;
+				break;
+				
+			}
+			
+		}
+		
+		
+		
+		return finalFlag;
+	}
+	
 
 	public Player getPlayer() {
 		return player;
@@ -164,6 +204,16 @@ public class Game {
 
 	public int getMaxTurnCount() {
 		return maxTurnCount;
+	}
+
+	public void targetCity(Army army, String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void endTurn() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

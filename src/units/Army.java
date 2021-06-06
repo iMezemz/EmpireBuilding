@@ -27,20 +27,30 @@ public class Army {
 		if(this.getUnits().size() == this.getMaxToHold()) {
 			throw new MaxCapacityException();
 		}
-		Army NewArmy = unit.getParentArmy();
-		NewArmy.getUnits().remove(unit);
-		unit.setParentArmy(NewArmy);
+		
 		this.units.add(unit);
+		
+		ArrayList<Unit> tempUnit = this.getUnits();
+		tempUnit.remove(unit);
+		this.setUnits(tempUnit);
+		//unit.getParentArmy().setUnits((this.getUnits()).remove(unit));
+		
 		
 	}
 	
+
+
+
 	public void handleAttackedUnit (Unit u) {
-		for(int i = 0; i<units.size(); i++) {
-		if(this.units.get(i) == u) {
-			if(u.getCurrentSoldierCount() == 0) {
-			this.units.remove(u);}
-		}
-	}}
+	if(u.getCurrentSoldierCount() == 0) {
+		ArrayList<Unit> temp = this.getUnits();
+		temp.remove(u);
+		
+		this.setUnits(temp);
+	}
+	
+	
+	}
 	
 	public double foodNeeded() {
 		double totalFoodNeeded = 0;
@@ -50,6 +60,8 @@ public class Army {
 		
 		return totalFoodNeeded;
 	}
+	
+	
 
 	public Status getCurrentStatus() {
 		return currentStatus;
