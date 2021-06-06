@@ -45,7 +45,7 @@ public abstract class Building {
 	}
 
 	public void upgrade() throws BuildingInCoolDownException, MaxLevelException {
-		if (isCoolDown())
+		if (this.isCoolDown())
 			throw new BuildingInCoolDownException();
 		if (this.getLevel() > 2)
 			throw new MaxLevelException();
