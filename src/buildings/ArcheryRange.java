@@ -36,7 +36,7 @@ public class ArcheryRange extends MilitaryBuilding {
 		try {
 			Archers = ReadingCSVFile.readFile("Archer.csv");
 		} catch (IOException e) {}
-		int level = getLevel();
+		int level = this.getLevel();
 		String[] ArcherInfo = Archers.get(level - 1);
 		this.setCurrentRecruit(this.getCurrentRecruit() + 1);	
 		return new Archer(level, 
