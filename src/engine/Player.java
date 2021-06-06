@@ -11,8 +11,12 @@ import buildings.Market;
 import buildings.MilitaryBuilding;
 import buildings.Stable;
 import exceptions.BuildingInCoolDownException;
+import exceptions.FriendlyCityException;
+import exceptions.MaxCapacityException;
+import exceptions.MaxLevelException;
 import exceptions.MaxRecruitedException;
 import exceptions.NotEnoughGoldException;
+import exceptions.TargetNotReachedException;
 import units.*;
 import engine.City;
 
@@ -153,6 +157,38 @@ public class Player {
 			}
 		}
 			}
+	public void upgradeBuilding(Building b) throws NotEnoughGoldException,
+	BuildingInCoolDownException, MaxLevelException {
+		int Cost = b.getUpgradeCost();
+		b.upgrade();
+		if (Cost > treasury) {
+			throw new NotEnoughGoldException() ;
+		}
+		treasury -= Cost;
+	}
+	public void initiateArmy(City city,Unit unit)  {
+		Army AttackingArmy = new Army(city.getName());
+		try {
+			AttackingArmy.relocateUnit(unit);
+		} catch (MaxCapacityException e) {
+			
+		}
+		getControlledArmies().add(AttackingArmy);
+
+	}
+	public void laySiege(Army army,City city) throws TargetNotReachedException,
+	FriendlyCityException{
+		if(army.getDistancetoTarget()!=0) {
+			throw new TargetNotReachedException();
+		}
+		if(controlledCities.contains(city)) {
+			throw new FriendlyCityException();
+		}
+		
+		army.setCurrentStatus(Status.BESIEGING);
+		city.setUnderSiege(true);
+		
+	}
 	}
 			
 	
