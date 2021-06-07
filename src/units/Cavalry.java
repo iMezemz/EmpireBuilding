@@ -1,71 +1,72 @@
 package units;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
 import exceptions.FriendlyFireException;
 
 public class Cavalry extends Unit {
 
-	public Cavalry(int level, int maxSoldierCount, double idleUpkeep,
-			double marchingUpkeep, double siegeUpkeep) {
-		super(level, maxSoldierCount, idleUpkeep, marchingUpkeep, siegeUpkeep);
-
+	public Cavalry(int level, int maxSoldierConunt, double idleUpkeep, double marchingUpkeep, double siegeUpkeep) {
+		super(level, maxSoldierConunt, idleUpkeep, marchingUpkeep, siegeUpkeep);
 	}
-	
-	public void attack(Unit target) throws FriendlyFireException{
-		//ArrayList<String[]> Archers_Attack = ReadingCSVFile.readFile("archer_attack.csv");
-		double factor=1;
+	public void attack(Unit target) throws FriendlyFireException {
+		super.attack(target);
+		int level = this.getLevel();
 		if (target instanceof Archer) {
-			switch(this.getLevel()) {
+			switch (level) {
 			case 1:
-				factor = 0.5;
+				target.setCurrentSoldierCount(target.getCurrentSoldierCount()-(int) Math.floor(0.5 * this
+						.getCurrentSoldierCount()));
 				break;
-			
 			case 2:
-				factor = 0.6;
+				target.setCurrentSoldierCount(target.getCurrentSoldierCount()-(int) Math.floor(0.6 * this
+						.getCurrentSoldierCount()));
 				break;
-				
-			case 3:
-				factor = 0.7;
+			default:
+				target.setCurrentSoldierCount(target.getCurrentSoldierCount()-(int) Math.floor(0.7 * this
+						.getCurrentSoldierCount()));
 				break;
-				
-			}}
-		
-		if (target instanceof Infantry) {
-			switch(this.getLevel()) {
+			}
+		} else if (target instanceof Infantry) {
+			switch (level) {
 			case 1:
-				factor = 0.3;
+				target.setCurrentSoldierCount(target.getCurrentSoldierCount()-(int) Math.floor(0.3 * this
+						.getCurrentSoldierCount()));
 				break;
-			
 			case 2:
-				factor = 0.4;
+				target.setCurrentSoldierCount(target.getCurrentSoldierCount()-(int) Math.floor(0.4 * this
+						.getCurrentSoldierCount()));
 				break;
-				
-			case 3:
-				factor = 0.5;
+			default:
+				target.setCurrentSoldierCount(target.getCurrentSoldierCount()-(int) Math.floor(0.5 * this
+						.getCurrentSoldierCount()));
 				break;
-				
-			}}
-		if (target instanceof Cavalry) {
-			switch(this.getLevel()) {
+			}
+		} else if (target instanceof Cavalry) {
+			switch (level) {
 			case 1:
-				factor = 0.2;
+				target.setCurrentSoldierCount(target.getCurrentSoldierCount()-(int) Math.floor(0.2 * this
+						.getCurrentSoldierCount()));
 				break;
-			
 			case 2:
-				factor = 0.2;
+				target.setCurrentSoldierCount(target.getCurrentSoldierCount()-(int) Math.floor(0.2 * this
+						.getCurrentSoldierCount()));
 				break;
-				
-			case 3:
-				factor = 0.3;
+			default:
+				target.setCurrentSoldierCount(target.getCurrentSoldierCount()-(int) Math.floor(0.3 * this
+						.getCurrentSoldierCount()));
 				break;
-				
-			}}
-		
-		int newSoldierCount = (int) Math.round( factor * this.getCurrentSoldierCount());
-		target.setCurrentSoldierCount(newSoldierCount);
-		
+			}
+
+		}
+		if (target.getCurrentSoldierCount() <= 0) {
+			target.setCurrentSoldierCount(0);
+			ArrayList<Unit> targetParentArmy = target.getParentArmy().getUnits();
+			for (int i = 0; i < targetParentArmy.size(); i++) {
+				if(target.getParentArmy().getCurrentLocation() .equals( targetParentArmy.get(i).getParentArmy().getCurrentLocation()))
+					targetParentArmy.remove(i);
+			}
+		}
 		
 	}
-
 }

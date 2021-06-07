@@ -1,11 +1,7 @@
 package buildings;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 import units.Cavalry;
 import units.Unit;
-import engine.ReadingCSVFile;
 import exceptions.BuildingInCoolDownException;
 import exceptions.MaxLevelException;
 import exceptions.MaxRecruitedException;
@@ -32,19 +28,16 @@ public class Stable extends MilitaryBuilding {
 			throw new BuildingInCoolDownException();
 		if (this.getCurrentRecruit() > 2)
 			throw new MaxRecruitedException();
-		ArrayList<String[]> Cavalry = null;
-		try {
-			Cavalry = ReadingCSVFile.readFile("Cavalry.csv");
-		} catch (IOException e) {
+		this.setCurrentRecruit(getCurrentRecruit()+1);
+		switch (this.getLevel()) {
+		case 1:
+			return new Cavalry(1, 40, 0.6, 0.7, 0.75);
+		case 2:
+			return new Cavalry(2, 40, 0.6, 0.7, 0.75);
+		default:
+			return new Cavalry(3, 60, 0.7, 0.8, 0.9);
 		}
-		int level = getLevel();
-		String[] CavalryInfo = Cavalry.get(level - 1);
-		this.setCurrentRecruit(this.getCurrentRecruit() + 1);
-		return new Cavalry(level, 
-				Integer.parseInt(CavalryInfo[1]),
-				Double.parseDouble(CavalryInfo[2]),
-				Double.parseDouble(CavalryInfo[3]),
-				Double.parseDouble(CavalryInfo[4]));
 
 	}
+
 }

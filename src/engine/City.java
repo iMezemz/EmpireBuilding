@@ -2,11 +2,30 @@ package engine;
 
 import java.util.ArrayList;
 
-import units.Army;
 import buildings.EconomicBuilding;
 import buildings.MilitaryBuilding;
+import units.Army;
 
 public class City {
+	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		City other = (City) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
 	private String name;
 	private ArrayList<EconomicBuilding> economicalBuildings;
 	private ArrayList<MilitaryBuilding> militaryBuildings;
@@ -14,14 +33,20 @@ public class City {
 	private int turnsUnderSiege;
 	private boolean underSiege;
 
-	
 	public City(String name) {
 		this.name = name;
 		economicalBuildings = new ArrayList<EconomicBuilding>();
-		defendingArmy = new Army(name);
 		militaryBuildings = new ArrayList<MilitaryBuilding>();
-		turnsUnderSiege = 0;
-		underSiege = false;
+		defendingArmy = new Army(name);
+		turnsUnderSiege = -1;
+	}
+
+	public ArrayList<EconomicBuilding> getEconomicalBuildings() {
+		return economicalBuildings;
+	}
+
+	public ArrayList<MilitaryBuilding> getMilitaryBuildings() {
+		return militaryBuildings;
 	}
 
 	public Army getDefendingArmy() {
@@ -40,34 +65,16 @@ public class City {
 		this.turnsUnderSiege = turnsUnderSiege;
 	}
 
+	public String getName() {
+		return this.name;
+	}
+
 	public boolean isUnderSiege() {
 		return underSiege;
 	}
 
 	public void setUnderSiege(boolean underSiege) {
 		this.underSiege = underSiege;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	// written for convenience of loadArmy and loadCitiesAndDistances methods 
-	//(mainly for contains and indexOf)
-	// (MAY NEED IMPROVMENT LATER)
-	public boolean equals(Object o) {
-		if(!(o instanceof City))
-			return false;
-		City c = (City) o;
-		return c.name.equals(name);
-	}
-
-	public ArrayList<EconomicBuilding> getEconomicalBuildings() {
-		return economicalBuildings;
-	}
-
-	public ArrayList<MilitaryBuilding> getMilitaryBuildings() {
-		return militaryBuildings;
 	}
 
 }

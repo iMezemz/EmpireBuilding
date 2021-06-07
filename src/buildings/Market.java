@@ -22,5 +22,4 @@ public class Market extends EconomicBuilding {
 		else
 			return 2000;
 	}
-
 }

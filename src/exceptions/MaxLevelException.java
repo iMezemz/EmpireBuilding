@@ -1,13 +1,15 @@
 package exceptions;
 
+@SuppressWarnings("serial")
 public class MaxLevelException extends BuildingException {
 
-	
 	public MaxLevelException() {
-		super();
+
 	}
+
 	public MaxLevelException(String s) {
 		super(s);
+
 	}
-	
+
 }

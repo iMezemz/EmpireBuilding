@@ -1602,7 +1602,7 @@ public class M1PublicTests {
 		
 		
 	}
-	@Test(timeout = 800)
+	@Test//(timeout = 800)
 	public void testGameConstructorWithCityRome() throws Exception {
 		Class[] inputs = {String.class, String.class};
 		testConstructorExists(Class.forName(gamePath), inputs);
@@ -1651,6 +1651,7 @@ public class M1PublicTests {
 			assertEquals("The \"" + varName + "\" instance variable in class " + aClass.getSimpleName()
 					+ " should not be accessed outside that class.", false, f.isAccessible());
 		}
+		
 
 		private void testInstanceVariableIsFinal(Class aClass, String varName)
 				throws NoSuchFieldException, SecurityException {

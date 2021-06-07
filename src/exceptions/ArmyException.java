@@ -1,13 +1,15 @@
 package exceptions;
 
+@SuppressWarnings("serial")
 public abstract class ArmyException extends EmpireException {
 
-	
-	public ArmyException(){
-		super();
+	public ArmyException() {
+
 	}
-	
+
 	public ArmyException(String s) {
 		super(s);
+
 	}
+
 }

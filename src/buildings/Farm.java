@@ -7,8 +7,8 @@ public class Farm extends EconomicBuilding {
 
 	public Farm() {
 		super(1000, 500);
-	}
 
+	}
 	public void upgrade() throws BuildingInCoolDownException, MaxLevelException {
 		super.upgrade();
 		if (this.getLevel() == 2)
@@ -25,4 +25,5 @@ public class Farm extends EconomicBuilding {
 			return 1000;
 	}
 	
+
 }

@@ -4,6 +4,7 @@ import exceptions.BuildingInCoolDownException;
 import exceptions.MaxLevelException;
 
 public abstract class Building {
+
 	private int cost;
 	private int level;
 	private int upgradeCost;
@@ -12,8 +13,20 @@ public abstract class Building {
 	public Building(int cost, int upgradeCost) {
 		this.cost = cost;
 		this.upgradeCost = upgradeCost;
-		level = 1;
+		this.level = 1;
 		coolDown = true;
+	}
+	public void upgrade() throws BuildingInCoolDownException, MaxLevelException {
+		if (this.isCoolDown())
+			throw new BuildingInCoolDownException();
+		if (this.getLevel() > 2)
+			throw new MaxLevelException();
+		this.setLevel(this.getLevel() + 1);
+		this.setCoolDown(true);
+	}
+		
+	public int getCost() {
+		return cost;
 	}
 
 	public int getLevel() {
@@ -36,26 +49,8 @@ public abstract class Building {
 		return coolDown;
 	}
 
-	public void setCoolDown(boolean coolDown) {
-		this.coolDown = coolDown;
-	}
-
-	public int getCost() {
-		
-		return cost;
-		
-		
-	}
-	
-	
-
-	public void upgrade() throws BuildingInCoolDownException, MaxLevelException {
-		if (this.isCoolDown())
-			throw new BuildingInCoolDownException();
-		if (this.getLevel() > 2)
-			throw new MaxLevelException();
-		this.setLevel(this.getLevel() + 1);
-		this.setCoolDown(true);
+	public void setCoolDown(boolean inCooldown) {
+		this.coolDown = inCooldown;
 	}
 
 }
