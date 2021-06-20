@@ -22,13 +22,11 @@ public class MainGameWindow extends JFrame {
 		backgroundLabel.setBounds(0, 0, this.getWidth(), this.getHeight());
 		backgroundLabel.setIcon(new ImageIcon("images/MainBackground.gif"));
 		mainContainer.add(backgroundLabel);
+		
+		
 		startButton = new JButton();
 		startButton.setOpaque(true);
 		startButton.setContentAreaFilled(false);
-		// startButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-
-		// startButton.setBorderPainted(false);
-		// startButton.setBackground(Color.LIGHT_GRAY);
 		startButton.setIcon(new ImageIcon("images/startButton.png"));
 		startButton.setBounds(460, 470, 250, 30);
 		this.add(startButton);

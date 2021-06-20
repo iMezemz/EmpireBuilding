@@ -12,7 +12,7 @@ public class PlayerCityDecideView extends JFrame {
 	private JComboBox <String> citiesAvailableToPlayer;
 	private JButton confirmButton;
 	private String PlayerCity ;
-	
+	private JLabel backgroundLabel ;
 	
 	public PlayerCityDecideView(){
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,18 +23,16 @@ public class PlayerCityDecideView extends JFrame {
 		
 		JLayeredPane mainContainer = new JLayeredPane();
 		
-		JLabel backgroundLabel = new JLabel();
+		backgroundLabel = new JLabel();
 		backgroundLabel.setBounds(0, 0, this.getWidth(), this.getHeight());
-		backgroundLabel.setIcon(new ImageIcon("images/"));
+		backgroundLabel.setIcon(new ImageIcon("images/WorldMap.png"));
 		mainContainer.add(backgroundLabel);
 		
-		JLabel citiesLabel = new JLabel("City:");
-		citiesLabel.setBounds(400, 348, 90, 30);
-		this.add(citiesLabel);
+	
 		
 		confirmButton = new JButton();
 		confirmButton.setText("Confirm");
-		confirmButton.setBounds(530,380,80,40);
+		confirmButton.setBounds(380,380,80,40);
 		this.add(confirmButton);
 		
 		
@@ -42,7 +40,7 @@ public class PlayerCityDecideView extends JFrame {
 		
 		String[] choices = {"", "Cairo","Rome", "Sparta"};
 		citiesAvailableToPlayer = new JComboBox<String>(choices);
-		citiesAvailableToPlayer.setBounds(450, 350, 250, 30);
+		citiesAvailableToPlayer.setBounds(300, 350, 250, 30);
 		citiesAvailableToPlayer.setVisible(true);
 		citiesAvailableToPlayer.setToolTipText("choose"); 
 		this.add(citiesAvailableToPlayer);
@@ -57,6 +55,15 @@ public class PlayerCityDecideView extends JFrame {
 
 
 	
+
+
+	public JLabel getBackgroundLabel() {
+		return backgroundLabel;
+	}
+
+
+
+
 
 
 	public JButton getConfirmButton() {
