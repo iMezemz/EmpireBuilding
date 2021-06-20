@@ -1,20 +1,16 @@
 package units;
 
 import java.util.ArrayList;
-import units.Status;
+
 import exceptions.MaxCapacityException;
 
-/**
- * @author mohammad.hussein
- *
- */
+
 public class Army{
 	private Status currentStatus;
 	private ArrayList<Unit> units;
 	private int distancetoTarget;
 	private String target;
 	private String currentLocation;
-	@SuppressWarnings("unused")
 	private final int maxToHold=10;
 
 	public Army(String currentLocation) {
@@ -23,7 +19,19 @@ public class Army{
 		units=new ArrayList<Unit>();
 		distancetoTarget=-1;
 		target="";
+		
 	}
+	public void relocateUnit(Unit unit) throws MaxCapacityException
+	{
+		if(units.size()==maxToHold)
+			throw new MaxCapacityException("Maximum capacity reached");
+		units.add(unit);
+		unit.getParentArmy().units.remove(unit);
+		unit.setParentArmy(this);
+	}
+	
+	
+
 	public Status getCurrentStatus() {
 		return currentStatus;
 	}
@@ -37,7 +45,6 @@ public class Army{
 	}
 
 	public void setUnits(ArrayList<Unit> units) {
-		
 		this.units = units;
 	}
 
@@ -60,35 +67,34 @@ public class Army{
 	public void setCurrentLocation(String currentLocation) {
 		this.currentLocation = currentLocation;
 	}
+	
 	public int getMaxToHold() {
 		return maxToHold;
 	}
-	public void relocateUnit(Unit unit) throws MaxCapacityException {
-		if(units.size() == this.getMaxToHold())
-			throw new MaxCapacityException();
-		
-		ArrayList<Unit> oldParentArmyUnits = unit.getParentArmy().getUnits();
-		oldParentArmyUnits.remove(unit);
-		unit.setParentArmy(this);
-		this.units.add(unit);
-	}
-	public void handleAttackedUnit(Unit u){
-		if(u.getCurrentSoldierCount() == 0){
-			this.getUnits().remove(u);
+	public double foodNeeded()
+	{
+		double sum=0;
+		for(Unit u: units)
+		{
+			if(currentStatus==Status.IDLE)
+				sum+=(u.getIdleUpkeep()*u.getCurrentSoldierCount());
+			else if(currentStatus==Status.MARCHING)
+				sum+=(u.getMarchingUpkeep()*u.getCurrentSoldierCount());
+			else 
+				sum+=(u.getSiegeUpkeep()*u.getCurrentSoldierCount());
+			
 		}
-	}
-	public double foodNeeded(){
-		Double food = 0.0;
+		return sum;
 		
-		for(Unit u : this.units){
-			if(this.getCurrentStatus() == Status.BESIEGING)
-			food += (u.getSiegeUpkeep())*u.getCurrentSoldierCount();
-			else if(this.getCurrentStatus() == Status.IDLE)
-			food += (u.getIdleUpkeep())*u.getCurrentSoldierCount();	
-			else
-			food += (u.getMarchingUpkeep())*u.getCurrentSoldierCount();
+	}
+	public void handleAttackedUnit(Unit u) {
+		if(u.getCurrentSoldierCount()<=0)
+		{
+			u.setCurrentSoldierCount(0);
+		units.remove(u);
 		}
-		return food;
+		
 	}
 	
+
 }

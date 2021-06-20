@@ -20,27 +20,4 @@ public class Distance {
 		return distance;
 	}
 
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Distance other = (Distance) obj;
-//		if (distance != other.distance)
-//			return false;
-		if (from == null) {
-			if (other.from != null)
-				return false;
-		} else if (!from.equals(other.from))
-			return false;
-		if (to == null) {
-			if (other.to != null)
-				return false;
-		} else if (!to.equals(other.to))
-			return false;
-		return true;
-	}
-
 }
