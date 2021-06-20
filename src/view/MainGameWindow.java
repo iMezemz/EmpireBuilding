@@ -13,7 +13,7 @@ public class MainGameWindow extends JFrame {
 	public MainGameWindow() {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(new Dimension(800, 600));
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setTitle("Empire Building");
 		this.setLocationRelativeTo(null);
 

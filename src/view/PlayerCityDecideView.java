@@ -4,11 +4,14 @@ package view;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+
 import java.awt.*;
 
 @SuppressWarnings("serial")
 public class PlayerCityDecideView extends JFrame {
 	private JComboBox <String> citiesAvailableToPlayer;
+	private JButton confirmButton;
+	private String PlayerCity ;
 	
 	
 	public PlayerCityDecideView(){
@@ -25,6 +28,16 @@ public class PlayerCityDecideView extends JFrame {
 		backgroundLabel.setIcon(new ImageIcon("images/"));
 		mainContainer.add(backgroundLabel);
 		
+		JLabel citiesLabel = new JLabel("City:");
+		citiesLabel.setBounds(400, 348, 90, 30);
+		this.add(citiesLabel);
+		
+		confirmButton = new JButton();
+		confirmButton.setText("Confirm");
+		confirmButton.setBounds(530,380,80,40);
+		this.add(confirmButton);
+		
+		
 		
 		
 		String[] choices = {"", "Cairo","Rome", "Sparta"};
@@ -37,10 +50,31 @@ public class PlayerCityDecideView extends JFrame {
 		this.add(mainContainer);
 		this.setVisible(true);
 		
+		
+		
 	}
 	
+
+
+	
+
+
+	public JButton getConfirmButton() {
+		return confirmButton;
+	}
+
 	public static void main(String[] args) {
 		new PlayerCityDecideView();
+
+	}
+
+
+
+
+
+
+	public JComboBox<String> getCitiesAvailableToPlayer() {
+		return citiesAvailableToPlayer;
 	}
 
 }

@@ -41,7 +41,7 @@ public class MainViewController implements ActionListener {
 		}
 		if (validName) {
 			view.dispose();
-//			new PlayerCityDecideController(playerName);
+			new CityDecideViewController(playerName);
 		}
 	}
 
