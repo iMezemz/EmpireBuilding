@@ -52,7 +52,7 @@ public class CityDecideViewController implements ActionListener {
 		String PlayerCity = Gameview.getCitiesAvailableToPlayer().getSelectedItem().toString();
 		if (PlayerCity != "") {
 		Gameview.dispose();
-//		new GameController(PlayerName , PlayerCity)
+		new GameController(PlayerName , PlayerCity);
 		}
 		}
 		
