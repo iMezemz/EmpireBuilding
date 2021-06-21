@@ -52,6 +52,7 @@ public class MainViewController implements ActionListener {
 		Clip clip = AudioSystem.getClip();
 		clip.open(audioInputStream);
 		clip.start();
+		clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 
 	public static void main(String[] args) {
