@@ -11,13 +11,13 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import view.MainGameWindow;
+import view.StartFrame;
 
 public class MainViewController implements ActionListener {
-	MainGameWindow view;
+	StartFrame view;
 
 	public MainViewController() {
-		view = new MainGameWindow();
+		view = new StartFrame();
 		try {
 			this.playSound("sounds/soundtrack.wav");
 		} catch (UnsupportedAudioFileException | IOException

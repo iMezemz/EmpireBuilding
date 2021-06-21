@@ -6,11 +6,11 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 @SuppressWarnings("serial")
-public class MainGameWindow extends JFrame {
+public class StartFrame extends JFrame {
 	private JTextField playerNameInput;
 	private JButton startButton;
 
-	public MainGameWindow() {
+	public StartFrame() {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(new Dimension(800, 600));
 		this.setResizable(true);
@@ -69,6 +69,6 @@ public class MainGameWindow extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new MainGameWindow();
+		new StartFrame();
 	}
 }

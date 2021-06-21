@@ -8,18 +8,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 
 import engine.Game;
-import view.PlayerCityDecideView;
+import view.CityDecideFrame;
 
 
 public class CityDecideViewController implements ActionListener {
-	PlayerCityDecideView Gameview;
+	CityDecideFrame Gameview;
 	Game model;
 	String PlayerName;
 	
 	
 	public CityDecideViewController(String PlayerName) {
 		this.PlayerName = PlayerName;
-		Gameview = new PlayerCityDecideView();
+		Gameview = new CityDecideFrame();
 		Gameview.getConfirmButton().addActionListener(this);
 		Gameview.getCitiesAvailableToPlayer().addActionListener(this);
 	

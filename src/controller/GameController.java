@@ -7,15 +7,15 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import engine.Game;
-import view.WorldMapView;
+import view.MainGameFrame;
 
 public class GameController implements ActionListener , MouseListener{
 
-	private WorldMapView MapView;
+	private MainGameFrame MapView;
 	private Game model;
 	
 	public GameController(String PlayerName, String PlayerCity) {
-		MapView = new WorldMapView();
+		MapView = new MainGameFrame();
 		try {
 			model = new Game(PlayerName , PlayerCity);
 		} catch (IOException e) {

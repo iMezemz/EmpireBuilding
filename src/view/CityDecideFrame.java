@@ -8,13 +8,13 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 @SuppressWarnings("serial")
-public class PlayerCityDecideView extends JFrame {
+public class CityDecideFrame extends JFrame {
 	private JComboBox <String> citiesAvailableToPlayer;
 	private JButton confirmButton;
 	private String PlayerCity ;
 	private JLabel backgroundLabel ;
 	
-	public PlayerCityDecideView(){
+	public CityDecideFrame(){
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(new Dimension(800, 600));
 		this.setResizable(false);
@@ -71,7 +71,7 @@ public class PlayerCityDecideView extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new PlayerCityDecideView();
+		new CityDecideFrame();
 
 	}
 
