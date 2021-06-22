@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import engine.Game;
 import view.MainGameFrame;
@@ -22,7 +23,13 @@ public class GameController implements ActionListener , MouseListener{
 			// TODO Auto-generated catch block
 			MapView.dispose();
 		}
+	
+	
+		
+		
 	}
+	
+	
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -58,5 +65,8 @@ public class GameController implements ActionListener , MouseListener{
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	public static void main(String[]args) {
+		new GameController("Hussein","Cairo");
 	}
 }

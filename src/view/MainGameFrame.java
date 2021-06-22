@@ -33,7 +33,7 @@ public class MainGameFrame extends JFrame {
 //		PlayerInfo.setBounds(5, 5, this.getWidth()-5, 20);
 		PlayerInfo.setOpaque(true);
 		PlayerInfo.setEditable(false);
-		PlayerInfo.setText("Hussein Ahmed");  
+//		PlayerInfo.setText("Hussein Ahmed");  
 		PlayerInfo.setFont(new Font("Serif", Font.BOLD, 20));
 		PlayerInfo.setForeground(new Color(235, 191, 138));
 		PlayerInfo.setBackground(Color.BLACK);
