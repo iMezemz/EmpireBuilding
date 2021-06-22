@@ -5,7 +5,11 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 
+
+
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class CityDecideFrame extends JFrame {
@@ -21,6 +25,13 @@ public class CityDecideFrame extends JFrame {
 		this.setTitle("Choose your City");
 		this.setLocationRelativeTo(null);
 		
+		Font loadedFont = null;
+		try {
+			loadedFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/mainFont.ttf")).deriveFont(12.3f);
+		} catch (FontFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		JLayeredPane mainContainer = new JLayeredPane();
 		
 		backgroundLabel = new JLabel();
@@ -32,17 +43,20 @@ public class CityDecideFrame extends JFrame {
 		
 		confirmButton = new JButton();
 		confirmButton.setText("Confirm");
-		confirmButton.setBounds(380,380,80,40);
+		confirmButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		confirmButton.setBounds(360,380,120,40);
+		confirmButton.setFont(loadedFont);
 		this.add(confirmButton);
 		
 		
 		
 		
-		String[] choices = {"", "Cairo","Rome", "Sparta"};
+		String[] choices = {"Choose City", "Cairo","Rome", "Sparta"};
 		citiesAvailableToPlayer = new JComboBox<String>(choices);
 		citiesAvailableToPlayer.setBounds(300, 350, 250, 30);
 		citiesAvailableToPlayer.setVisible(true);
 		citiesAvailableToPlayer.setToolTipText("choose"); 
+		citiesAvailableToPlayer.setFont(loadedFont);
 		this.add(citiesAvailableToPlayer);
 		
 		this.add(mainContainer);

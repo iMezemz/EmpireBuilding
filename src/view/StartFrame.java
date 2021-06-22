@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class StartFrame extends JFrame {
@@ -13,9 +15,17 @@ public class StartFrame extends JFrame {
 	public StartFrame() {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(new Dimension(800, 600));
-		this.setResizable(true);
+		this.setResizable(false);
 		this.setTitle("Empire Building");
 		this.setLocationRelativeTo(null);
+		Font loadedFont = null;
+		try {
+			loadedFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/mainFont.ttf")).deriveFont(14f);
+		} catch (FontFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
 		JLayeredPane mainContainer = new JLayeredPane();
 		JLabel backgroundLabel = new JLabel();
@@ -25,15 +35,17 @@ public class StartFrame extends JFrame {
 		
 		
 		startButton = new JButton();
-		startButton.setOpaque(true);
+		startButton.setOpaque(false);
 		startButton.setContentAreaFilled(false);
+		startButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		startButton.setBorderPainted(false);
 		startButton.setIcon(new ImageIcon("images/startButton.png"));
 		startButton.setBounds(460, 470, 250, 30);
 		this.add(startButton);
 
 		playerNameInput = new JTextField();
 		playerNameInput.setBounds(460, 420, 250, 30);
-		playerNameInput.setFont(new Font("Serif", Font.BOLD, 18));
+		playerNameInput.setFont(loadedFont);
 		playerNameInput.setForeground(Color.BLACK);
 		playerNameInput.setOpaque(false);
 		this.add(playerNameInput);

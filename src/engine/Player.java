@@ -21,6 +21,12 @@ import units.Status;
 import units.Unit;
 
 public class Player {
+	@Override
+	public String toString() {
+		return "Name : " + name + "     Treasury : " + treasury + "     Food : "
+				+ food ;
+	}
+
 	private String name;
 	private ArrayList<City> controlledCities;
 	private ArrayList<Army> controlledArmies;
