@@ -8,20 +8,24 @@ import java.io.IOException;
 
 import engine.Game;
 import view.MainGameFrame;
+import view.WorldMapPanel;
 
 public class GameController implements ActionListener , MouseListener{
 
-	private MainGameFrame MapView;
+	private MainGameFrame view;
 	private Game model;
+	private WorldMapPanel mapView;
 	
-	public GameController(String PlayerName, String PlayerCity) {
-		MapView = new MainGameFrame();
-		try {
-			model = new Game(PlayerName , PlayerCity);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			MapView.dispose();
-		}
+	public GameController(String PlayerName, String PlayerCity) throws IOException  {
+		this.model = new Game(PlayerName , PlayerCity);
+		this.view = new MainGameFrame();
+		
+		view.getplayerInfo().append(model.getPlayer().toString() + "     Turns : "+ model.getCurrentTurnCount()+"/"+model.getMaxTurnCount() );
+		
+		
+	}
+	public static void main(String[] args) throws IOException {
+		new GameController("Hussein","Cairo");
 	}
 
 	@Override

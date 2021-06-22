@@ -1,21 +1,25 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
-
+@SuppressWarnings("serial")
 public class MainGameFrame extends JFrame {
-	
-	private JTextArea PlayerInfo;
-	private JLabel backgroundLabel;
-	private JButton idleArmies;
-	private JButton marchingArmies;
-	private JButton besiegingArmies;
-	private JTextArea InfoLabel;
-	private JPanel MainPanel;
-	
+
+	private JTextArea playerInfo;
+	private ImagePanel mainPanel;
+
+	public ImagePanel getmainPanel() {
+		return mainPanel;
+	}
+
+	public void setmainPanel(ImagePanel mainPanel) {
+		this.mainPanel = mainPanel;
+	}
+
 	public MainGameFrame() {
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,53 +27,42 @@ public class MainGameFrame extends JFrame {
 		this.setResizable(false);
 		this.setTitle("Empire Building");
 		this.setLocationRelativeTo(null);
+		Font loadedFont = null;
+		try {
+			loadedFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/mainFont.ttf")).deriveFont(15f);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
 		
-		MainPanel = new WorldMapPanel();
-		this.add(MainPanel);
+		// Only for testing, MainPanel starts as null and is set by the controller
+		mainPanel = new WorldMapPanel();
+		this.add(mainPanel);
+		//------------------------------------------------------------------------
 		
+		playerInfo = new JTextArea();
+		playerInfo.setPreferredSize(new Dimension(this.getWidth(),20));
+		playerInfo.setOpaque(true);
+		playerInfo.setEditable(false);
+//		playerInfo.setText(" Hussein Ahmed");  
+		playerInfo.setFont(loadedFont);
+		playerInfo.setForeground(new Color(235, 191, 138));
+		playerInfo.setForeground(Color.WHITE);
+		playerInfo.setBackground(new Color(70, 70, 70));
+
 		
-		PlayerInfo = new JTextArea();
-		PlayerInfo.setPreferredSize(new Dimension(this.getWidth(),21));
-//		PlayerInfo.setBounds(5, 5, this.getWidth()-5, 20);
-		PlayerInfo.setOpaque(true);
-		PlayerInfo.setEditable(false);
-		PlayerInfo.setText("Hussein Ahmed");  
-		PlayerInfo.setFont(new Font("Serif", Font.BOLD, 20));
-		PlayerInfo.setForeground(new Color(235, 191, 138));
-		PlayerInfo.setBackground(Color.BLACK);
+		this.add(playerInfo, BorderLayout.NORTH);
 		
-		this.add(PlayerInfo, BorderLayout.NORTH);
-		
-//		this.add(mainContainer);
 		this.setVisible(true);
 		
 	}
 
-	public JTextArea getPlayerInfo() {
-		return PlayerInfo;
+	public JTextArea getplayerInfo() {
+		return playerInfo;
 	}
 
-	public JButton getIdleArmies() {
-		return idleArmies;
-	}
 
-	public JButton getMarchingArmies() {
-		return marchingArmies;
-	}
 
-	public JButton getBesiegingArmies() {
-		return besiegingArmies;
-	}
-
-	public JTextArea getInfoLabel() {
-		return InfoLabel;
-	}
-
-	public JLabel getBackgroundLabel() {
-		return backgroundLabel;
-	}
-	
-	public static void main(String[]args) {
+	public static void main(String[] args) {
 		new MainGameFrame();
 	}
 }

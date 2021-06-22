@@ -22,7 +22,6 @@ public class MainViewController implements ActionListener {
 			this.playSound("sounds/soundtrack.wav");
 		} catch (UnsupportedAudioFileException | IOException
 				| LineUnavailableException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		view.getStartButton().addActionListener(this);
