@@ -1,6 +1,9 @@
-package view;
+package view.frames;
 
 import javax.swing.*;
+
+import view.panels.IdleArmiesPanel;
+import view.panels.ImagePanel;
 
 import java.awt.*;
 import java.io.File;
@@ -16,8 +19,14 @@ public class MainGameFrame extends JFrame {
 		return mainPanel;
 	}
 
-	public void setmainPanel(ImagePanel mainPanel) {
-		this.mainPanel = mainPanel;
+	public void setmainPanel(ImagePanel newPanel) {
+		if(this.mainPanel != null)
+			this.remove(this.mainPanel);
+		
+		this.mainPanel = newPanel;
+		this.add(newPanel);
+		this.revalidate(); 
+		this.repaint();
 	}
 
 	public MainGameFrame() {
@@ -34,10 +43,7 @@ public class MainGameFrame extends JFrame {
 			e.printStackTrace();
 		}
 		
-		// Only for testing, MainPanel starts as null and is set by the controller
-		mainPanel = new WorldMapPanel();
-		this.add(mainPanel);
-		//------------------------------------------------------------------------
+		
 		
 
 		playerInfo = new JTextArea();
@@ -62,7 +68,8 @@ public class MainGameFrame extends JFrame {
 
 
 
-	public static void main(String[] args) {
-		new MainGameFrame();
-	}
+//	public static void main(String[] args) {
+//		MainGameFrame frame = new MainGameFrame();
+//		frame.setmainPanel(new IdleArmiesPanel());
+//	}
 }

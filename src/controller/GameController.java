@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import engine.Game;
-import view.MainGameFrame;
-import view.WorldMapPanel;
+import view.frames.MainGameFrame;
+import view.panels.WorldMapPanel;
 
 public class GameController implements ActionListener , MouseListener{
 

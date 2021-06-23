@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 
 import engine.Game;
-import view.CityDecideFrame;
+import view.frames.CityDecideFrame;
 
 public class CityDecideViewController implements ActionListener {
 	CityDecideFrame Gameview;

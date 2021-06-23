@@ -11,7 +11,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import view.StartFrame;
+import view.frames.StartFrame;
 
 public class MainViewController implements ActionListener {
 	StartFrame view;

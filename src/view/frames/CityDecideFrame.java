@@ -1,8 +1,7 @@
-package view;
+package view.frames;
 
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 
 
@@ -15,7 +14,7 @@ import java.io.IOException;
 public class CityDecideFrame extends JFrame {
 	private JComboBox <String> citiesAvailableToPlayer;
 	private JButton confirmButton;
-	private String PlayerCity ;
+//	private String PlayerCity;
 	private JLabel backgroundLabel ;
 	
 	public CityDecideFrame(){

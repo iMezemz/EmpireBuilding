@@ -1,8 +1,7 @@
-package view;
+package view.panels;
 
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.File;
@@ -11,7 +10,6 @@ import java.io.IOException;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
@@ -23,10 +21,6 @@ public class WorldMapPanel extends ImagePanel {
 	private JButton marchingArmies;
 	private JButton besiegingArmies;
 	private JButton cairoCity,romeCity,spartaCity,initiateArmy,relocateUnit;
-	private JTextArea infoLabel;
-//	private JLabel mapViewLabel;
-//	private JButton cityViewButton;
- 
 	
 	public WorldMapPanel() {
 		
@@ -75,46 +69,24 @@ public class WorldMapPanel extends ImagePanel {
 		romeCity.setOpaque(false);
 		romeCity.setContentAreaFilled(false);
 		romeCity.setBorderPainted(false);
-		
-		initiateArmy = new JButton("Initiate Army");
-		initiateArmy.setFont(loadedFont);
-		initiateArmy.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		initiateArmy.setBounds(20, 80, 140, 40);
-		initiateArmy.setVisible(false);
-		
-		relocateUnit = new JButton("Relocate Unit");
-		relocateUnit.setFont(loadedFont);
-		relocateUnit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		relocateUnit.setBounds(20, 130, 140, 40);
-		relocateUnit.setVisible(false);
+
 		
 		
-		infoLabel = new JTextArea();
-		infoLabel.setBounds(200, 170, 360, 280);
-		infoLabel.setBackground(new Color(235, 191, 138));		
-		infoLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		infoLabel.setVisible(false);
-		
+
 		JLabel mapViewLabel = new JLabel(new ImageIcon("images/MapView.png"));
 		mapViewLabel.setBounds(20, 30, 100, 40);
 		
-//		cityViewButton = new JButton("City View");
-//		cityViewButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-//		cityViewButton.setBounds(20, 80, 100, 40);
-//		cityViewButton.setFont(loadedFont);
+
 		
 		this.add(initiateArmy);
 		this.add(relocateUnit);
 		this.add(romeCity);
 		this.add(spartaCity);
 		this.add(cairoCity);
-//		this.add(cityViewButton);
 		this.add(mapViewLabel);
-		this.add(infoLabel);
 		this.add(idleArmies);
 		this.add(marchingArmies);
 		this.add(besiegingArmies);
-//		this.add(PlayerInfo);
 		
 		
 	}
@@ -166,15 +138,25 @@ public class WorldMapPanel extends ImagePanel {
 	public void setRelocateUnit(JButton relocateUnit) {
 		this.relocateUnit = relocateUnit;
 	}
-	public JTextArea getInfoLabel() {
-		return infoLabel;
-	}
-	public void setInfoLabel(JTextArea infoLabel) {
-		this.infoLabel = infoLabel;
-	}
-	public static void main(String[] args) {
-		WorldMapPanel p = new WorldMapPanel();
-		
+//	public JTextArea getInfoLabel() {
+//		return infoLabel;
+//	}
+//	public void setInfoLabel(JTextArea infoLabel) {
+//		this.infoLabel = infoLabel;
+//	}
 	
-	}
+	
+//	insert in army panels
+//	initiateArmy = new JButton("Initiate Army");
+//	initiateArmy.setFont(loadedFont);
+//	initiateArmy.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//	initiateArmy.setBounds(20, 80, 140, 40);
+//	initiateArmy.setVisible(false);
+//	
+//	relocateUnit = new JButton("Relocate Unit");
+//	relocateUnit.setFont(loadedFont);
+//	relocateUnit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//	relocateUnit.setBounds(20, 130, 140, 40);
+//	relocateUnit.setVisible(false);
+	
 }
