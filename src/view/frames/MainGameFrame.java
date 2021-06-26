@@ -2,6 +2,7 @@ package view.frames;
 
 import javax.swing.*;
 
+import engine.Player;
 import view.panels.IdleArmiesPanel;
 import view.panels.ImagePanel;
 import view.panels.WorldMapPanel;

@@ -38,9 +38,6 @@ public class MarchingArmiesPanel extends ImagePanel{
 			panelConstraint.insets = new Insets(5, 5, 5, 5);
 			panelConstraint.fill = GridBagConstraints.HORIZONTAL;
 			JButton b = null;
-			int cairoCount = 0;
-			int spartaCount = 0;
-			int romeCount = 0;
 			Font loadedFont = null;
 			try {
 				loadedFont = Font.createFont(Font.TRUETYPE_FONT,
@@ -56,6 +53,7 @@ public class MarchingArmiesPanel extends ImagePanel{
 					b.setText("Currently Marching To "+a.getTarget()+"... Arriving in  "+a.getDistancetoTarget());
 					b.setFont(loadedFont);
 					b.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					armyButtons.add(b);
 					this.add(b, panelConstraint);
 					if (panelConstraint.gridx == 1) {
 						panelConstraint.gridx = 0;
@@ -63,27 +61,40 @@ public class MarchingArmiesPanel extends ImagePanel{
 					} else {
 						panelConstraint.gridx++;
 					}
-					armyPanels.add(new ArmyPanel(a));
+					armyPanels.add(new ArmyPanel(a,"Marching"));
 				}
+				
 			}
+			
+			JButton backButton = new JButton("Back");
+			backButton.setActionCommand("BackToMapView");
+			panelConstraint.gridx = 0;
+			panelConstraint.gridy++;
+			panelConstraint.gridwidth = 2;
+			panelConstraint.fill = GridBagConstraints.HORIZONTAL;
+			panelConstraint.insets = new Insets(35,35,35,35);
+			backButton.setFont(loadedFont);
+			backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			this.add(backButton,panelConstraint);
 
 		}
 		public static void main(String[] args) {
 			Army a = new Army("Cairo");
-			a.setCurrentStatus(Status.MARCHING);
+			a.setCurrentStatus(Status.IDLE);
 			City c = new City("Cairo");
 			c.setTurnsUnderSiege(2);
 			ArrayList<City> cities = new ArrayList<City>();
 			cities.add(c);
-//			Army b = new Army("Cairo");
-//			b.setCurrentStatus(Status.BESIEGING);
-//			Army c = new Army("Cairo");
+			Army b = new Army("Cairo");
+			b.setCurrentStatus(Status.IDLE);
+			Army n = new Army("Cairo");
 //			Army d = new Army("Cairo");
 //			Army e = new Army("Cairo");
 //			Army f = new Army("Cairo");
 //			Army g = new Army("Cairo");
 //			Army h = new Army("Cairo");
-//			c.setCurrentStatus(Status.BESIEGING);
+			
+			n.setCurrentStatus(Status.IDLE);
 //			
 //			d.setCurrentStatus(Status.BESIEGING);
 //			e.setCurrentStatus(Status.BESIEGING);
@@ -94,7 +105,14 @@ public class MarchingArmiesPanel extends ImagePanel{
 				us.add(new Archer(i, i + 1, i + 200, i + 21, 23));
 			}
 			a.setUnits(us);
-//			b.setUnits(us);
+			a.setTarget("Rome");
+			a.setDistancetoTarget(2);
+			b.setUnits(us);
+			b.setTarget("Rome");
+			b.setDistancetoTarget(2);
+			n.setUnits(us);
+			n.setTarget("Rome");
+			n.setDistancetoTarget(3);
 //			c.setUnits(us);
 //			d.setUnits(us);
 //			e.setUnits(us);
@@ -103,7 +121,8 @@ public class MarchingArmiesPanel extends ImagePanel{
 //			h.setUnits(us);
 			ArrayList<Army> armies = new ArrayList<Army>();
 			armies.add(a);
-//			armies.add(b);
+			armies.add(b);
+			armies.add(n);
 //			armies.add(c);
 //			armies.add(d);
 //			armies.add(e);
@@ -111,7 +130,7 @@ public class MarchingArmiesPanel extends ImagePanel{
 //			armies.add(g);
 //			armies.add(h);
 			MarchingArmiesPanel p = new MarchingArmiesPanel(armies);
-			// ArmyPanel p = new ArmyPanel(a);
+//			 ArmyPanel p = new ArmyPanel(a,a.getCurrentStatus().toString());
 			MainGameFrame frame = new MainGameFrame();
 			frame.setmainPanel(p);
 			frame.revalidate();

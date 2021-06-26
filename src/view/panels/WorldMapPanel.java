@@ -21,13 +21,13 @@ public class WorldMapPanel extends ImagePanel {
 	private JButton marchingArmies;
 	private JButton besiegingArmies;
 	private JButton cairoCity,romeCity,spartaCity;
-	private ArrayList<JButton> worldMapButtons;
+	private ArrayList<JButton> allButtons;
 	
 	
 	public WorldMapPanel() {
 		
 		super("images/GameplayMapBackground.png");
-		worldMapButtons = new ArrayList<JButton>();
+		allButtons = new ArrayList<JButton>();
 		
 		Font loadedFont = null;
 		try {
@@ -80,6 +80,14 @@ public class WorldMapPanel extends ImagePanel {
 		romeCity.setBorderPainted(false);
 		romeCity.setActionCommand("Rome");
 
+		allButtons.add(romeCity);
+		allButtons.add(cairoCity);
+		allButtons.add(spartaCity);
+		allButtons.add(idleArmies);
+		allButtons.add(marchingArmies);
+		allButtons.add(besiegingArmies);
+		
+		
 		
 		
 

@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class ImagePanel extends JPanel {
+public abstract class ImagePanel extends JPanel {
 
 	  private Image img;
 	  public ImagePanel(String img) {

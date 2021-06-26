@@ -23,6 +23,7 @@ import view.frames.MainGameFrame;
 public class BesiegingArmiesPanel extends ImagePanel {
 	ArrayList<ArmyPanel> armyPanels;
 	ArrayList<JButton> armyButtons;
+	ArrayList<JButton> allButtons;
 
 	public BesiegingArmiesPanel(ArrayList<Army> controlledArmies,ArrayList<City> availableCities) {
 		super("images/besiegingArmies.png");
@@ -72,6 +73,7 @@ public class BesiegingArmiesPanel extends ImagePanel {
 				}
 				b.setFont(loadedFont);
 				b.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				armyButtons.add(b);
 				this.add(b, panelConstraint);
 				if (panelConstraint.gridx == 1) {
 					panelConstraint.gridx = 0;
@@ -79,9 +81,21 @@ public class BesiegingArmiesPanel extends ImagePanel {
 				} else {
 					panelConstraint.gridx++;
 				}
-				armyPanels.add(new ArmyPanel(a));
+				armyPanels.add(new ArmyPanel(a,"Besieging"));
 			}
 		}
+		JButton backButton = new JButton("Back");
+		backButton.setActionCommand("BackToMapView");
+		panelConstraint.gridx = 0;
+		panelConstraint.gridy++;
+		panelConstraint.gridwidth = 2;
+		panelConstraint.fill = GridBagConstraints.HORIZONTAL;
+		panelConstraint.insets = new Insets(35,35,35,35);
+		backButton.setFont(loadedFont);
+		backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.add(backButton,panelConstraint);
+		allButtons = new ArrayList<JButton>();
+		allButtons.addAll(armyButtons);
 
 	}
 

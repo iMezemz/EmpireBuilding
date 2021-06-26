@@ -7,6 +7,8 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
+
 import engine.Game;
 import view.frames.MainGameFrame;
 import view.panels.WorldMapPanel;
@@ -22,9 +24,21 @@ public class GameController implements ActionListener , MouseListener{
 	public GameController(String PlayerName, String PlayerCity) throws IOException  {
 		this.model = new Game(PlayerName , PlayerCity);
 		this.view = new MainGameFrame();
-		
+		this.updatePlayerInfoBar();
+	}
+	
+	private void updatePlayerInfoBar(){
 		view.getplayerInfo().append(model.getPlayer().toString() + "     Turns : "+ model.getCurrentTurnCount()+"/"+model.getMaxTurnCount() );
 		
+	}
+	private void bind(ArrayList<JButton> viewButtons){
+		for(JButton b: viewButtons){
+			b.addActionListener(this);
+		}
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JButton buttonClicked = (JButton)e.getSource();
 		
 	}
 	
@@ -61,11 +75,7 @@ public class GameController implements ActionListener , MouseListener{
 		
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	public static void main(String[]args) throws IOException {
 		new GameController("Hussein","Cairo");
 	}

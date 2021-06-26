@@ -60,6 +60,7 @@ public class IdleArmiesPanel extends ImagePanel{
 				}
 				b.setFont(loadedFont);
 				b.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				armyButtons.add(b);
 				this.add(b, panelConstraint);
 				if (panelConstraint.gridx == 1) {
 					panelConstraint.gridx = 0;
@@ -67,9 +68,19 @@ public class IdleArmiesPanel extends ImagePanel{
 				} else {
 					panelConstraint.gridx++;
 				}
-				armyPanels.add(new ArmyPanel(a));
+				armyPanels.add(new ArmyPanel(a,"Idle"));
 			}
 		}
+		JButton backButton = new JButton("Back");
+		backButton.setActionCommand("BackToMapView");
+		panelConstraint.gridx = 0;
+		panelConstraint.gridy++;
+		panelConstraint.gridwidth = 2;
+		panelConstraint.fill = GridBagConstraints.HORIZONTAL;
+		panelConstraint.insets = new Insets(35,35,35,35);
+		backButton.setFont(loadedFont);
+		backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.add(backButton,panelConstraint);
 
 	}
 
@@ -104,8 +115,8 @@ public class IdleArmiesPanel extends ImagePanel{
 		armies.add(f);
 		armies.add(g);
 		armies.add(h);
-		IdleArmiesPanel p = new IdleArmiesPanel(armies);
-		// ArmyPanel p = new ArmyPanel(a);
+//		IdleArmiesPanel p = new IdleArmiesPanel(armies);
+		 ArmyPanel p = new ArmyPanel(a, a.getCurrentStatus().toString());
 		MainGameFrame frame = new MainGameFrame();
 		frame.setmainPanel(p);
 		frame.revalidate();
