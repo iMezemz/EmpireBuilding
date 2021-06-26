@@ -111,6 +111,9 @@ public class WorldMapPanel extends ImagePanel {
 	public JButton getIdleArmies() {
 		return idleArmies;
 	}
+	public ArrayList<JButton> getAllButtons() {
+		return allButtons;
+	}
 	public void setIdleArmies(JButton idleArmies) {
 		this.idleArmies = idleArmies;
 	}

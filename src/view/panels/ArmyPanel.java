@@ -41,19 +41,14 @@ public class ArmyPanel extends ImagePanel {
 		}
 		JButton backButton = new JButton("Back");
 		backButton.setText("Back");
-		backButton.setActionCommand("BackTo"+armyStatus);
+		backButton.setActionCommand("BackTo"+army.getCurrentStatus().toString());
 		backButton.setBounds(0,0,100,100);
 		
 		units = new ArrayList<JButton>();
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints buttons = new GridBagConstraints();
 
-////		buttons.gridx = 0;
-////		buttons.gridy = 0;
-////		buttons.gridwidth = 1;
-////		buttons.fill = GridBagConstraints.HORIZONTAL;
-////		buttons.insets = new Insets(30,30,30,30);
-//		this.add(backButton,buttons);
+
 		buttons.insets = new Insets(0,0,0,0);
 		buttons.gridx = 0;
 		buttons.gridy = 1;
@@ -61,7 +56,6 @@ public class ArmyPanel extends ImagePanel {
 		buttons.fill = GridBagConstraints.HORIZONTAL;
 		for (Unit u : army.getUnits()) {
 			JButton b = new JButton(u.toString());
-			// b.setActionCommand(u.getParentArmy().getCurrentLocation());
 			units.add(b);
 			allButtons.add(b);
 			b.setFont(loadedFont);
@@ -75,6 +69,7 @@ public class ArmyPanel extends ImagePanel {
 			}
 
 		}
+		if(armyStatus.equals("IDLE")){
 		buttons.gridx = 0;
 		buttons.gridy++;
 		initiateArmy = new JButton("Initiate Army");
@@ -88,13 +83,16 @@ public class ArmyPanel extends ImagePanel {
 		relocateUnit.setFont(loadedFont);
 		allButtons.add(relocateUnit);
 		this.add(relocateUnit, buttons);
+		}
 		buttons.gridx = 0;
 		buttons.gridy++;
 		buttons.gridwidth = 2;
 		buttons.fill = GridBagConstraints.HORIZONTAL;
 		buttons.insets = new Insets(25,25,25,25);
 		backButton.setFont(loadedFont);
+		allButtons.add(backButton);
 		this.add(backButton,buttons);
+		
 
 	}
 

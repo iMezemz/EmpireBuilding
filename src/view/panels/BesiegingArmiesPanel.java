@@ -20,7 +20,7 @@ import units.Unit;
 import view.frames.MainGameFrame;
 
 @SuppressWarnings("serial")
-public class BesiegingArmiesPanel extends ImagePanel {
+public class BesiegingArmiesPanel extends ImagePanel implements PressableArmy {
 	ArrayList<ArmyPanel> armyPanels;
 	ArrayList<JButton> armyButtons;
 	ArrayList<JButton> allButtons;
@@ -73,6 +73,7 @@ public class BesiegingArmiesPanel extends ImagePanel {
 				}
 				b.setFont(loadedFont);
 				b.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				b.setActionCommand("GotoArmy");
 				armyButtons.add(b);
 				this.add(b, panelConstraint);
 				if (panelConstraint.gridx == 1) {
@@ -96,7 +97,20 @@ public class BesiegingArmiesPanel extends ImagePanel {
 		this.add(backButton,panelConstraint);
 		allButtons = new ArrayList<JButton>();
 		allButtons.addAll(armyButtons);
+		allButtons.add(backButton);
 
+	}
+
+	public ArrayList<ArmyPanel> getArmyPanels() {
+		return armyPanels;
+	}
+
+	public ArrayList<JButton> getArmyButtons() {
+		return armyButtons;
+	}
+
+	public ArrayList<JButton> getAllButtons() {
+		return allButtons;
 	}
 
 	public static void main(String[] args) {

@@ -121,7 +121,6 @@ public class Game {
 	}
 
 	public void targetCity(Army army, String targetName) {
-
 		String from = army.getCurrentLocation();
 		if (army.getCurrentLocation().equals("onRoad"))
 			from = army.getTarget();

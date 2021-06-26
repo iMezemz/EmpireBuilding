@@ -58,6 +58,7 @@ public class MainGameFrame extends JFrame {
 
 		
 		this.add(playerInfo, BorderLayout.NORTH);
+		this.setmainPanel(new WorldMapPanel());
 		
 		this.setVisible(true);
 		

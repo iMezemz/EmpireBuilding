@@ -7,6 +7,7 @@ import java.io.IOException;
 import javax.swing.*;
 
 import controller.CityDecideViewController;
+import engine.City;
 
 import java.util.ArrayList;
 
@@ -17,12 +18,14 @@ import units.Unit;
 import view.frames.MainGameFrame;
 
 @SuppressWarnings("serial")
-public class IdleArmiesPanel extends ImagePanel{
+public class IdleArmiesPanel extends ImagePanel implements PressableArmy {
 
 	ArrayList<ArmyPanel> armyPanels;
 	ArrayList<JButton> armyButtons;
+	ArrayList<JButton> allButtons;
 
-	public IdleArmiesPanel(ArrayList<Army> armies)  {
+	public IdleArmiesPanel(ArrayList<Army> armies,
+			ArrayList<City> availableCities, ArrayList<City> controlledCities) {
 		super("images/idleArmies.png");
 		armyPanels = new ArrayList<ArmyPanel>();
 		armyButtons = new ArrayList<JButton>();
@@ -56,11 +59,12 @@ public class IdleArmiesPanel extends ImagePanel{
 					b.setText(a.getCurrentLocation() + " " + romeCount);
 				} else {
 					spartaCount++;
-					b.setText(a.getCurrentLocation() + " " + spartaCount);	
+					b.setText(a.getCurrentLocation() + " " + spartaCount);
 				}
 				b.setFont(loadedFont);
 				b.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				armyButtons.add(b);
+				b.setActionCommand("GotoArmy");
 				this.add(b, panelConstraint);
 				if (panelConstraint.gridx == 1) {
 					panelConstraint.gridx = 0;
@@ -68,7 +72,26 @@ public class IdleArmiesPanel extends ImagePanel{
 				} else {
 					panelConstraint.gridx++;
 				}
-				armyPanels.add(new ArmyPanel(a,"Idle"));
+				armyPanels.add(new ArmyPanel(a, "Idle"));
+			}
+		}
+		for (City c : controlledCities) {
+			Army a = c.getDefendingArmy();
+			if (a.getCurrentStatus() == Status.IDLE) {
+				b = new JButton();
+				b.setText(a.getCurrentLocation()+ " Defending Army");
+				b.setFont(loadedFont);
+				b.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				armyButtons.add(b);
+				b.setActionCommand("GotoArmy");
+				this.add(b, panelConstraint);
+				if (panelConstraint.gridx == 1) {
+					panelConstraint.gridx = 0;
+					panelConstraint.gridy++;
+				} else {
+					panelConstraint.gridx++;
+				}
+				armyPanels.add(new ArmyPanel(a, "Idle"));
 			}
 		}
 		JButton backButton = new JButton("Back");
@@ -77,13 +100,27 @@ public class IdleArmiesPanel extends ImagePanel{
 		panelConstraint.gridy++;
 		panelConstraint.gridwidth = 2;
 		panelConstraint.fill = GridBagConstraints.HORIZONTAL;
-		panelConstraint.insets = new Insets(35,35,35,35);
+		panelConstraint.insets = new Insets(35, 35, 35, 35);
 		backButton.setFont(loadedFont);
 		backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		this.add(backButton,panelConstraint);
+		this.add(backButton, panelConstraint);
+		allButtons = new ArrayList<JButton>();
+		allButtons.addAll(armyButtons);
+		allButtons.add(backButton);
 
 	}
 
+	public ArrayList<ArmyPanel> getArmyPanels() {
+		return armyPanels;
+	}
+
+	public ArrayList<JButton> getArmyButtons() {
+		return armyButtons;
+	}
+
+	public ArrayList<JButton> getAllButtons() {
+		return allButtons;
+	}
 
 	public static void main(String[] args) {
 		Army a = new Army("Cairo");
@@ -115,8 +152,8 @@ public class IdleArmiesPanel extends ImagePanel{
 		armies.add(f);
 		armies.add(g);
 		armies.add(h);
-//		IdleArmiesPanel p = new IdleArmiesPanel(armies);
-		 ArmyPanel p = new ArmyPanel(a, a.getCurrentStatus().toString());
+//		 IdleArmiesPanel p = new IdleArmiesPanel(armies);
+		ArmyPanel p = new ArmyPanel(a, a.getCurrentStatus().toString());
 		MainGameFrame frame = new MainGameFrame();
 		frame.setmainPanel(p);
 		frame.revalidate();

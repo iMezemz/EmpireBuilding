@@ -7,10 +7,12 @@ import view.frames.MainGameFrame;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class CityViewPanel extends ImagePanel {
 	JButton militaryBuildings, economicalBuildings, defendingArmy;
+	private ArrayList<JButton> allButtons;
 
 	public CityViewPanel(String img) {
 		super(img);
@@ -46,6 +48,11 @@ public class CityViewPanel extends ImagePanel {
 	public static void main(String[] args) {
 		MainGameFrame frame = new MainGameFrame();
 		frame.setmainPanel(new RomeViewPanel());
+	}
+
+	@Override
+	public ArrayList<JButton> getAllButtons() {
+		return this.allButtons;
 	}
 
 }
