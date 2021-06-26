@@ -10,9 +10,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
-public class CityViewPanel extends ImagePanel {
-	JButton militaryBuildings, economicalBuildings, defendingArmy;
-	private ArrayList<JButton> allButtons;
+
+public class CityViewPanel extends ImagePanel implements Pressable{
+	
+	JTextArea archeryRangeInfo, farmInfo, barracksInfo, marketInfo, stableInfo;
+	JButton militaryBuildingsButton, economicalBuildingsButton, cityArmiesButton;
+	ArrayList <JButton> allButtons;
+	
 
 	public CityViewPanel(String img) {
 		super(img);
@@ -24,25 +28,47 @@ public class CityViewPanel extends ImagePanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		militaryBuildings = new JButton("Military Buildings");
-		militaryBuildings.setFont(loadedFont);
-		militaryBuildings.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		militaryBuildings.setBounds(110, 475, 180, 50);
-
-		economicalBuildings = new JButton("Economical Buildings");
-		economicalBuildings.setFont(loadedFont);
-		economicalBuildings.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		economicalBuildings.setBounds(310, 475, 200, 50);
-
-		defendingArmy = new JButton("Defending Army");
-		defendingArmy.setFont(loadedFont);
-		defendingArmy.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		defendingArmy.setBounds(530, 475, 180, 50);
 		
-		this.add(defendingArmy);
-		this.add(economicalBuildings);
-		this.add(militaryBuildings);
+		allButtons = new ArrayList<JButton> ();
+
+		JButton backButton = new JButton("Back");
+		backButton.setFont(loadedFont);
+		backButton.setBounds(360, 500, 100, 40);
+		backButton.setActionCommand("Backtomapview");
+			
+		
+
+		militaryBuildingsButton = new JButton("Military Buildings");
+		militaryBuildingsButton.setFont(loadedFont);
+		militaryBuildingsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		militaryBuildingsButton.setBounds(110, 435, 180, 50);
+		militaryBuildingsButton.setActionCommand("militaryBuildingsButton");
+
+		economicalBuildingsButton = new JButton("Economical Buildings");
+		economicalBuildingsButton.setFont(loadedFont);
+		economicalBuildingsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		economicalBuildingsButton.setBounds(310, 435, 200, 50);
+		economicalBuildingsButton.setActionCommand("Economical Buildings");
+		
+
+		cityArmiesButton = new JButton("City Armies");
+		cityArmiesButton.setFont(loadedFont);
+		cityArmiesButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		cityArmiesButton.setBounds(530, 435, 180, 50);
+		cityArmiesButton.setActionCommand("City Armies");
+		
+		
+		this.add(cityArmiesButton);
+		this.add(economicalBuildingsButton);
+		this.add(militaryBuildingsButton);
+		this.add(backButton);
+		
+		allButtons.add(militaryBuildingsButton);
+		allButtons.add(economicalBuildingsButton);
+		allButtons.add(cityArmiesButton);
+		allButtons.add(backButton);
+		
+		
 	}
 
 	public static void main(String[] args) {
