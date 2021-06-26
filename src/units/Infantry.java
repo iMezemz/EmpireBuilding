@@ -7,6 +7,10 @@ public class Infantry extends Unit {
 	public Infantry(int level, int maxSoldierConunt, double idleUpkeep, double marchingUpkeep, double siegeUpkeep) {
 		super(level, maxSoldierConunt, idleUpkeep, marchingUpkeep, siegeUpkeep);
 	}
+	@Override
+	public String toString() {
+		return "Infantry \n Level: "+getLevel()+" Current Soldier Count: "+getCurrentSoldierCount() + "/"+getMaxSoldierCount();
+	}
 
 	@Override
 	public void attack(Unit target) throws FriendlyFireException {

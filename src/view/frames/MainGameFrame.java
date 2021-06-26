@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import view.panels.IdleArmiesPanel;
 import view.panels.ImagePanel;
+import view.panels.WorldMapPanel;
 
 import java.awt.*;
 import java.io.File;
@@ -30,7 +31,6 @@ public class MainGameFrame extends JFrame {
 	}
 
 	public MainGameFrame() {
-		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(new Dimension(800, 600));
 		this.setResizable(false);
@@ -68,8 +68,8 @@ public class MainGameFrame extends JFrame {
 
 
 
-//	public static void main(String[] args) {
-//		MainGameFrame frame = new MainGameFrame();
-//		frame.setmainPanel(new IdleArmiesPanel());
-//	}
+	public static void main(String[] args) {
+		MainGameFrame frame = new MainGameFrame();
+		frame.setmainPanel(new WorldMapPanel());
+	}
 }

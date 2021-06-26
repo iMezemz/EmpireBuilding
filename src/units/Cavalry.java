@@ -4,6 +4,11 @@ import exceptions.FriendlyFireException;
 
 public class Cavalry extends Unit {
 
+	@Override
+	public String toString() {
+		return "Cavalry \n Level: "+getLevel()+" Current Soldier Count: "+getCurrentSoldierCount() + "/"+getMaxSoldierCount();
+	}
+
 	public Cavalry(int level, int maxSoldierConunt, double idleUpkeep, double marchingUpkeep, double siegeUpkeep) {
 		super(level, maxSoldierConunt, idleUpkeep, marchingUpkeep, siegeUpkeep);
 	}
