@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -65,8 +67,8 @@ public class BattleViewPanel extends ImagePanel {
 //
 //	}
 //	
-	public BattleViewPanel(String img, ArrayList<Unit> defendingArmyUnits, ArrayList<Unit> attackingArmyUnits) {
-		super(img);
+	public BattleViewPanel(ArrayList<Unit> defendingArmyUnits, ArrayList<Unit> attackingArmyUnits) {
+		super("images/battleViewBackground.png");
 		allButtons = new ArrayList<JButton>();
 		defendingArmyButtons = new ArrayList<JButton>();
 		attackingArmyButtons = new ArrayList<JButton>();
@@ -74,9 +76,12 @@ public class BattleViewPanel extends ImagePanel {
 		backPanel = new JPanel();
 		
 		Font loadedFont = null;
+		Font largerLoadedFont = null;
 		try {
 			loadedFont = Font.createFont(Font.TRUETYPE_FONT,
-					new File("fonts/mainFont.ttf")).deriveFont(12.3f);
+					new File("fonts/mainFont.ttf")).deriveFont(8.4f);
+			largerLoadedFont = Font.createFont(Font.TRUETYPE_FONT,
+					new File("fonts/mainFont.ttf")).deriveFont(15f);
 		} catch (FontFormatException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,12 +89,21 @@ public class BattleViewPanel extends ImagePanel {
 		
 		//log to output updates of the battle 
 		log = new JTextField();
-		log.setBounds(510, 70, 250, 450);
+		log.setBounds(535, 70, 250, 450);
 		log.setEditable(false);
 		log.setFont(loadedFont);
-		log.setForeground(Color.BLACK);
-		log.setOpaque(false);
+		log.setForeground(Color.WHITE);
+		log.setBackground(Color.DARK_GRAY);
+		log.setOpaque(true);
+		log.setBorder(BorderFactory.createEmptyBorder());
 		this.add(log);
+		JTextArea logLabel = new JTextArea("Battle Log");
+		logLabel.setFont(largerLoadedFont);
+		logLabel.setBounds(610,30,200,40);
+		logLabel.setForeground(Color.WHITE);
+		logLabel.setOpaque(false);
+		logLabel.setEditable(false);
+		this.add(logLabel);
 		
 		
 		for(Unit u: defendingArmyUnits) {
@@ -106,16 +120,22 @@ public class BattleViewPanel extends ImagePanel {
 
 		
 ////////////////////////////////////////////////////ATTACKING ARMY/////////////////////////////////////////////////////////////////	
+		JTextArea attackingLabel = new JTextArea("Attacking Army");
+		attackingLabel.setFont(largerLoadedFont);
+		attackingLabel.setBounds(205,510,200,40);
+		attackingLabel.setForeground(Color.WHITE);
+		attackingLabel.setOpaque(false);
+		attackingLabel.setEditable(false);
+		this.add(attackingLabel);
+		
 attackingArmyPanel = new JPanel();
-attackingArmyPanel.setBounds(10, 290, 490, 250);
-attackingArmyPanel.setOpaque(true);
+attackingArmyPanel.setBounds(10, 290, 520, 250);
+attackingArmyPanel.setOpaque(false);
 attackingArmyPanel.setVisible(true);
-attackingArmyPanel.setBorder(BorderFactory.createBevelBorder(0, Color.black, Color.black));
-
-
+//attackingArmyPanel.setBorder(BorderFactory.createBevelBorder(0, Color.black, Color.black));
 attackingArmyPanel.setLayout(new GridBagLayout());
 
-buttons.insets = new Insets(0,0,0,0);
+buttons.insets = new Insets(5,5,5,5);
 buttons.gridx = 0;
 buttons.gridy = 0;
 buttons.gridwidth = 1;
@@ -126,14 +146,14 @@ for (JButton b  : attackingArmyButtons) {
 	allButtons.add(b);
 	b.setFont(loadedFont);
 	b.setActionCommand("UnitButton");
-	this.add(b, buttons);
+	attackingArmyPanel.add(b,buttons);
 	if (buttons.gridx == 1) {
 		buttons.gridx = 0;
 		buttons.gridy++;
 	} else {
 		buttons.gridx++;
 	}
-	attackingArmyPanel.add(b,buttons );
+	
 
 }
 this.add(attackingArmyPanel);
@@ -141,25 +161,28 @@ this.add(attackingArmyPanel);
 		
 //////////////////////////////////////////////////////////ATTACK BUTTON///////////////////////////////////////////////////		
 		attackButton = new JButton("Attack");
-		attackButton.setOpaque(false);
-		attackButton.setContentAreaFilled(true);
-		attackButton.setFont(loadedFont);
-		attackButton.setBackground(Color.white);
+		
+		attackButton.setFont(largerLoadedFont);
 		attackButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		attackButton.setBounds(210, 265,50, 20);
-		attackButton.setOpaque(false);
-		attackButton.setBorder(BorderFactory.createBevelBorder(1, Color.black, Color.red));
-
+		attackButton.setBounds(217, 265,100, 40);
 		this.add(attackButton);
 		allButtons.add(attackButton);
 
 ////////////////////////////////////////////// DEFENDING ARMY////////////////////////////////////////////////////////////////
-		defendingArmyPanel = new JPanel();
-		defendingArmyPanel.setBounds(10, 10, 490, 250);
-		defendingArmyPanel.setOpaque(true);
-		defendingArmyPanel.setVisible(true);
-		defendingArmyPanel.setBorder(BorderFactory.createBevelBorder(0, Color.black, Color.black));
+		JTextArea defendingLabel = new JTextArea("Defending Army");
+		defendingLabel.setFont(largerLoadedFont);
+		defendingLabel.setBounds(205,30,200,40);
+		defendingLabel.setForeground(Color.WHITE);
+		defendingLabel.setOpaque(false);
+		defendingLabel.setEditable(false);
 		
+		this.add(defendingLabel);
+		defendingArmyPanel = new JPanel();
+		defendingArmyPanel.setBounds(10, 10, 520, 250);
+		defendingArmyPanel.setOpaque(false);
+		defendingArmyPanel.setVisible(true);
+//		defendingArmyPanel.setBorder(BorderFactory.createBevelBorder(0, Color.black, Color.black));
+		defendingArmyPanel.setLayout(new GridBagLayout());
 		
 		buttons.gridx = 0;
 		buttons.gridy = 0;
@@ -169,18 +192,17 @@ this.add(attackingArmyPanel);
 		
 		for (JButton b  : defendingArmyButtons) {
 			
-			
 			allButtons.add(b);
 			b.setFont(loadedFont);
 			b.setActionCommand("UnitButton");
-			this.add(b, buttons);
+			defendingArmyPanel.add(b,buttons);
 			if (buttons.gridx == 1) {
 				buttons.gridx = 0;
 				buttons.gridy++;
 			} else {
 				buttons.gridx++;
 			}
-			defendingArmyPanel.add(b,buttons );
+			
 
 		}
 		this.add(defendingArmyPanel);
@@ -245,7 +267,7 @@ this.add(attackingArmyPanel);
 		ArrayList<Unit> defendingArmy = b.getUnits();
 		
 		MainGameFrame frame = new MainGameFrame();
-		frame.setmainPanel(new BattleViewPanel("images/battleViewBackground.png", defendingArmy, attackingArmy));
+		frame.setmainPanel(new BattleViewPanel( defendingArmy, attackingArmy));
 		
 	}
 

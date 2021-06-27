@@ -100,7 +100,7 @@ public class FarmPanel extends ImagePanel implements Pressable {
 		MainGameFrame frame = new MainGameFrame();
 		ArrayList<EconomicBuilding> x = new ArrayList <EconomicBuilding>();	
 		x.add(new Farm());
-		frame.setmainPanel(new FarmPanel("Cairo" , x  ));
+		frame.setmainPanel(new FarmPanel("Rome" , x  ));
 	}
 }
 		
