@@ -53,6 +53,7 @@ public class BarracksPanel extends ImagePanel implements Pressable {
 		barracksInfo.setBackground(Color.DARK_GRAY);
 		barracksInfo.setBounds(230,	350,300,70);
 		barracksInfo.setVisible(true);
+		barracksInfo.setEditable(false);
 		
 		
 		for(MilitaryBuilding x : militaryBuildingsArray) {

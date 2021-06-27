@@ -54,6 +54,7 @@ public class ArcheryRangePanel extends ImagePanel implements Pressable {
 		archeryRangeInfo.setBackground(Color.DARK_GRAY);
 		archeryRangeInfo.setBounds(230,	350,300,70);
 		archeryRangeInfo.setVisible(true);
+		archeryRangeInfo.setEditable(false);
 		
 		
 		for(MilitaryBuilding x : militaryBuildingsArray) {

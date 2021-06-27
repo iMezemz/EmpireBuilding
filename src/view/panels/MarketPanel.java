@@ -52,6 +52,7 @@ public class MarketPanel extends ImagePanel implements Pressable {
 		MarketInfo.setBackground(Color.DARK_GRAY);
 		MarketInfo.setBounds(230,	350,300,70);
 		MarketInfo.setVisible(true);
+		MarketInfo.setEditable(false);
 		
 		
 		for(EconomicBuilding x : EconomicalBuildingsArray) {

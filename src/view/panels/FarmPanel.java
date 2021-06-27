@@ -52,6 +52,7 @@ public class FarmPanel extends ImagePanel implements Pressable {
 		FarmInfo.setBackground(Color.DARK_GRAY);
 		FarmInfo.setBounds(230,	350,300,70);
 		FarmInfo.setVisible(true);
+		FarmInfo.setEditable(false);
 		
 		
 		for(EconomicBuilding x : EconomicalBuildingsArray) {

@@ -54,6 +54,7 @@ public class StablePanel extends ImagePanel implements Pressable {
 		StableInfo.setBackground(Color.DARK_GRAY);
 		StableInfo.setBounds(230,	350,300,70);
 		StableInfo.setVisible(true);
+		StableInfo.setEditable(false);
 		
 		
 		for(MilitaryBuilding x : militaryBuildingsArray) {
