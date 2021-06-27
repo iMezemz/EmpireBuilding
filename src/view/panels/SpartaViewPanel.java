@@ -5,6 +5,6 @@ package view.panels;
 public class SpartaViewPanel extends CityViewPanel {
 
 	public SpartaViewPanel() {
-		super("images/spartaCityView.png");
+		super("images/spartaCityView.png","Sparta");
 	}
 }

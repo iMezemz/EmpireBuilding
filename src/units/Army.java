@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import exceptions.MaxCapacityException;
 
 public class Army {
+	@Override
+	public String toString() {
+		return "Army [Current Location : " + currentLocation + "]";
+	}
+
 	private Status currentStatus;
 	private ArrayList<Unit> units;
 	private int distancetoTarget;

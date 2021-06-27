@@ -66,14 +66,14 @@ public class BarracksPanel extends ImagePanel implements Pressable {
 		upgradeButton = new JButton("Upgrade");
 		upgradeButton.setFont(loadedFont);
 		upgradeButton.setBounds(180,440,100,50);
-		upgradeButton.setActionCommand("upgradeunit");
+		upgradeButton.setActionCommand("upgradebarracks");
 		this.add(upgradeButton);
 		allButtons.add(upgradeButton);
 		
 		recruitButton = new JButton("Recruit");
 		recruitButton.setFont(loadedFont);
 		recruitButton.setBounds(320,440,130,50);
-		recruitButton.setActionCommand("recruitunit");
+		recruitButton.setActionCommand("recruitunitbarracks");
 		this.add(recruitButton);
 		allButtons.add(recruitButton);
 		

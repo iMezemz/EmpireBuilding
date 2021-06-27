@@ -13,14 +13,19 @@ import view.frames.MainGameFrame;
 
 @SuppressWarnings("serial")
 
-public class MilitaryBuildingsPanel extends ImagePanel implements Pressable{
+public class MilitaryBuildingsPanel extends ImagePanel implements Pressable, CarriesCityName{
 	
 	JButton barracksButton , archeryRangeButton, stableButton ;
 	ArrayList<JButton> allButtons;
+	private String cityName;
 	
 
+	public String getCityName() {
+		return cityName;
+	}
 	public MilitaryBuildingsPanel (String currentLocation) {
 		super("images/"+ currentLocation.toLowerCase() + "CityView.png");
+		cityName = currentLocation;
 		Font loadedFont = null;
 		try {
 			loadedFont = Font.createFont(Font.TRUETYPE_FONT,
@@ -38,7 +43,7 @@ public class MilitaryBuildingsPanel extends ImagePanel implements Pressable{
 		barracksButton.setActionCommand("gotobarracks");
 		
 		archeryRangeButton = new JButton("Archery Range");
-		archeryRangeButton.setBounds(320,440,130,50);
+		archeryRangeButton.setBounds(313,440,140,50);
 		archeryRangeButton.setFont(loadedFont);
 		archeryRangeButton.setActionCommand("gotoarcheryrange");
 		

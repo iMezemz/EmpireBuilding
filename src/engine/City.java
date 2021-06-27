@@ -6,6 +6,10 @@ import buildings.MilitaryBuilding;
 import units.Army;
 
 public class City {
+	@Override
+	public String toString() {
+		return name;
+	}
 	private String name;
 private ArrayList<EconomicBuilding> economicalBuildings;
 private ArrayList<MilitaryBuilding> militaryBuildings;

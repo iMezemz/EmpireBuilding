@@ -43,11 +43,11 @@ public class WorldMapPanel extends ImagePanel implements Pressable {
 		idleArmies.setBounds(120, 475, 180 ,50);
 		idleArmies.setActionCommand("Idle Armies");
 		
-		JButton attackButton = new JButton("Attack");
+		JButton attackButton = new JButton("Target a city");
 		attackButton.setFont(loadedFont);
 		attackButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		attackButton.setBounds(120, 415, 180 ,50);
-		attackButton.setActionCommand("Attack Button");
+		attackButton.setActionCommand("TargetCity");
 		
 		JButton endTurn = new JButton("End Turn");
 		endTurn.setFont(loadedFont);

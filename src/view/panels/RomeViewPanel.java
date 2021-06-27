@@ -5,7 +5,7 @@ package view.panels;
 public class RomeViewPanel extends CityViewPanel {
 
 	public RomeViewPanel() {
-		super("images/romeCityView.png");
+		super("images/romeCityView.png","Rome");
 	}
 
 }

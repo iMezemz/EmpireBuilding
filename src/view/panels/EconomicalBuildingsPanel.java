@@ -13,14 +13,19 @@ import view.frames.MainGameFrame;
 
 @SuppressWarnings("serial")
 
-public class EconomicalBuildingsPanel extends ImagePanel implements Pressable{
+public class EconomicalBuildingsPanel extends ImagePanel implements Pressable , CarriesCityName{
 	
+	public String getCityName() {
+		return cityName;
+	}
 	JButton farmButton, marketButton ;
 	ArrayList<JButton> allButtons;
+	private String cityName;
 	
 
 	public EconomicalBuildingsPanel (String currentLocation) {
 		super("images/"+ currentLocation.toLowerCase() + "CityView.png");
+		cityName = currentLocation;
 		Font loadedFont = null;
 		try {
 			loadedFont = Font.createFont(Font.TRUETYPE_FONT,

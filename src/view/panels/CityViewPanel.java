@@ -15,11 +15,13 @@ public class CityViewPanel extends ImagePanel implements Pressable{
 	
 	JTextArea archeryRangeInfo, farmInfo, barracksInfo, marketInfo, stableInfo;
 	JButton militaryBuildingsButton, economicalBuildingsButton, cityArmiesButton;
+	private String cityName;
 	ArrayList <JButton> allButtons;
 	
 
-	public CityViewPanel(String img) {
+	public CityViewPanel(String img,String cityName) {
 		super(img);
+		this.cityName = cityName;
 		Font loadedFont = null;
 		try {
 			loadedFont = Font.createFont(Font.TRUETYPE_FONT,
@@ -48,14 +50,14 @@ public class CityViewPanel extends ImagePanel implements Pressable{
 		economicalBuildingsButton.setFont(loadedFont);
 		economicalBuildingsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		economicalBuildingsButton.setBounds(310, 435, 200, 50);
-		economicalBuildingsButton.setActionCommand("Economical Buildings");
+		economicalBuildingsButton.setActionCommand("EconomicalBuildingsbutton");
 		
 
 		cityArmiesButton = new JButton("City Armies");
 		cityArmiesButton.setFont(loadedFont);
 		cityArmiesButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		cityArmiesButton.setBounds(530, 435, 180, 50);
-		cityArmiesButton.setActionCommand("City Armies");
+		cityArmiesButton.setActionCommand("CityArmiesbutton");
 		
 		
 		this.add(cityArmiesButton);
@@ -69,6 +71,10 @@ public class CityViewPanel extends ImagePanel implements Pressable{
 		allButtons.add(backButton);
 		
 		
+	}
+
+	public String getCityName() {
+		return cityName;
 	}
 
 	public static void main(String[] args) {
