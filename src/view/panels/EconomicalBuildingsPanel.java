@@ -13,13 +13,13 @@ import view.frames.MainGameFrame;
 
 @SuppressWarnings("serial")
 
-public class MilitaryBuildingsPanel extends ImagePanel implements Pressable{
+public class EconomicalBuildingsPanel extends ImagePanel implements Pressable{
 	
-	JButton barracksButton , archeryRangeButton, stableButton ;
+	JButton farmButton, marketButton ;
 	ArrayList<JButton> allButtons;
 	
 
-	public MilitaryBuildingsPanel (String currentLocation) {
+	public EconomicalBuildingsPanel (String currentLocation) {
 		super("images/"+ currentLocation.toLowerCase() + "CityView.png");
 		Font loadedFont = null;
 		try {
@@ -32,35 +32,30 @@ public class MilitaryBuildingsPanel extends ImagePanel implements Pressable{
 		 
 		allButtons = new ArrayList<JButton> ();
 		
-		barracksButton = new JButton("Barracks");
-		barracksButton.setBounds(180,440,100,50);
-		barracksButton.setFont(loadedFont);
-		barracksButton.setActionCommand("gotobarracks");
+		farmButton = new JButton("Farm");
+		farmButton.setBounds(180,440,100,50);
+		farmButton.setFont(loadedFont);
+		farmButton.setActionCommand("gotofarm");
 		
-		archeryRangeButton = new JButton("Archery Range");
-		archeryRangeButton.setBounds(320,440,130,50);
-		archeryRangeButton.setFont(loadedFont);
-		archeryRangeButton.setActionCommand("gotoarcheryrange");
+		marketButton = new JButton("Market");
+		marketButton.setBounds(320,440,130,50);
+		marketButton.setFont(loadedFont);
+		marketButton.setActionCommand("gotomarket");
 		
-		stableButton = new JButton("Stable");
-		stableButton.setBounds(480,440,100,50);
-		stableButton.setFont(loadedFont);
-		stableButton.setActionCommand("gotostable");
 		
 		JButton backButton = new JButton("Back");
 		backButton.setFont(loadedFont);
 		backButton.setBounds(337, 500, 100, 40);
 		backButton.setActionCommand("Backtocityview");
 		
-		this.add(barracksButton);
-		this.add(archeryRangeButton);
-		this.add(stableButton);
+		this.add(farmButton);
+		this.add(marketButton);
 		this.add(backButton);
 		
 		allButtons.add(backButton);
-		allButtons.add(barracksButton);
-		allButtons.add(archeryRangeButton);
-		allButtons.add(stableButton);
+		allButtons.add(farmButton);
+		allButtons.add(marketButton);
+
 
 		
  
@@ -70,6 +65,6 @@ public class MilitaryBuildingsPanel extends ImagePanel implements Pressable{
 	}
 	public static void main(String[] args) {
 		MainGameFrame frame = new MainGameFrame();
-		frame.setmainPanel(new MilitaryBuildingsPanel("Cairo"));
+		frame.setmainPanel(new EconomicalBuildingsPanel("Sparta"));
 	}
 }
