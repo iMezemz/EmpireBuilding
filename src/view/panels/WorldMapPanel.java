@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class WorldMapPanel extends ImagePanel {
+public class WorldMapPanel extends ImagePanel implements Pressable {
 	
 
 	private JButton idleArmies;
@@ -42,6 +42,18 @@ public class WorldMapPanel extends ImagePanel {
 		idleArmies.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		idleArmies.setBounds(120, 475, 180 ,50);
 		idleArmies.setActionCommand("Idle Armies");
+		
+		JButton attackButton = new JButton("Attack");
+		attackButton.setFont(loadedFont);
+		attackButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		attackButton.setBounds(120, 415, 180 ,50);
+		attackButton.setActionCommand("Attack Button");
+		
+		JButton endTurn = new JButton("End Turn");
+		endTurn.setFont(loadedFont);
+		endTurn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		endTurn.setBounds(120, 355, 180 ,50);
+		endTurn.setActionCommand("End Turn");
 		
 		marchingArmies = new JButton("My Marching Armies");
 		marchingArmies.setFont(loadedFont);
@@ -86,6 +98,8 @@ public class WorldMapPanel extends ImagePanel {
 		allButtons.add(idleArmies);
 		allButtons.add(marchingArmies);
 		allButtons.add(besiegingArmies);
+		allButtons.add(attackButton);
+		allButtons.add(endTurn);
 		
 		
 		
@@ -105,6 +119,8 @@ public class WorldMapPanel extends ImagePanel {
 		this.add(idleArmies);
 		this.add(marchingArmies);
 		this.add(besiegingArmies);
+		this.add(attackButton);
+		this.add(endTurn);
 		
 		
 	}

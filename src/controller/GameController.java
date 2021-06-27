@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -8,13 +9,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import engine.City;
 import engine.Game;
 import exceptions.BuildingInCoolDownException;
+import exceptions.MaxCapacityException;
 import exceptions.MaxRecruitedException;
 import exceptions.NotEnoughGoldException;
 import units.Archer;
+import units.Army;
+import units.Unit;
 import view.frames.MainGameFrame;
 import view.panels.ArmyPanel;
 import view.panels.BesiegingArmiesPanel;
@@ -31,7 +36,9 @@ public class GameController implements ActionListener , MouseListener{
 
 	private MainGameFrame view;
 	private Game model;
-	private WorldMapPanel mapView;
+	private JButton selectedUnit;
+	private Color defaultbgcolor;
+	private Color defaultfgcolor;
 	
 
 
@@ -65,6 +72,21 @@ public class GameController implements ActionListener , MouseListener{
 		}
 		return false;
 	}
+	 private static Army askUser(ArrayList<Army> controlledArmies) {
+		 Army[] choices = new Army[controlledArmies.size()];
+		 for (int i = 0; i < choices.length; i++) {
+			choices[i] = controlledArmies.get(i);
+		}
+	        Army s = (Army) JOptionPane.showInputDialog(
+	                null,
+	                "Choose Army to relocate selected unit to",
+	                "Choose Army",
+	                JOptionPane.PLAIN_MESSAGE,
+	                null,
+	                choices,
+	                choices[0]);
+	        return s;
+	    }
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -78,6 +100,21 @@ public class GameController implements ActionListener , MouseListener{
 			startView(new MarchingArmiesPanel(model.getPlayer().getControlledArmies()));
 		}
 		else if(typeOfButton.equals("Idle Armies") || typeOfButton.equals("BackToIDLE")){
+			try {
+				model.getPlayer().build("ArcheryRange", "Cairo");
+			} catch (NotEnoughGoldException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			model.endTurn();
+			try {
+				model.getPlayer().recruitUnit("Archer","Cairo");
+			} catch (BuildingInCoolDownException | MaxRecruitedException
+					| NotEnoughGoldException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			selectedUnit = null;
 			startView(new IdleArmiesPanel(model.getPlayer().getControlledArmies(), model.getAvailableCities(), model.getPlayer().getControlledCities()));
 		}
 		else if(typeOfButton.equals("Besieging Armies")|| typeOfButton.equals("BackToBESIEGING")){
@@ -87,6 +124,83 @@ public class GameController implements ActionListener , MouseListener{
 			PressableArmy currentView = (PressableArmy)view.getmainPanel();
 			startView(currentView.getArmyPanels().get(currentView.getArmyButtons().indexOf(buttonClicked)));
 		}
+		else if(typeOfButton.equals("UnitButton")){
+			if(selectedUnit == null){
+				selectedUnit = buttonClicked;
+				this.defaultbgcolor = buttonClicked.getBackground(); 
+				this.defaultfgcolor = buttonClicked.getForeground(); 
+				buttonClicked.setBackground(Color.DARK_GRAY);
+				buttonClicked.setForeground(Color.WHITE);
+			}
+			else if(selectedUnit == buttonClicked){
+				buttonClicked.setBackground(this.defaultbgcolor);
+				buttonClicked.setForeground(this.defaultfgcolor);
+				selectedUnit = null;
+			}
+			else{
+				selectedUnit.setBackground(this.defaultbgcolor);
+				selectedUnit.setForeground(this.defaultfgcolor);
+				selectedUnit = buttonClicked;
+				buttonClicked.setBackground(Color.DARK_GRAY);
+				buttonClicked.setForeground(Color.WHITE);
+			}	}
+		else if(typeOfButton.equalsIgnoreCase("Initiatearmy")){
+			if(selectedUnit != null){
+				ArmyPanel a = (ArmyPanel)view.getmainPanel();
+				Unit u = a.getUnitArray().get(a.getUnits().indexOf(selectedUnit));
+				City unitCity = null;
+				for(City c : model.getPlayer().getControlledCities()){
+					if(u.getParentArmy().getCurrentLocation() == c.getName()){
+						unitCity = c;
+					}
+				}
+				model.getPlayer().initiateArmy(unitCity,u);
+				selectedUnit = null;
+				startView(new IdleArmiesPanel(model.getPlayer().getControlledArmies(),model.getAvailableCities(),model.getPlayer().getControlledCities()));
+			}
+		}
+		else if(typeOfButton.equalsIgnoreCase("relocateunit")){
+			if(selectedUnit!=null){
+				ArmyPanel currentView = (ArmyPanel)view.getmainPanel();
+				
+				try {
+					askUser(model.getPlayer().getControlledArmies()).relocateUnit(currentView.getUnitArray().get(currentView.getUnits().indexOf(selectedUnit)));
+					selectedUnit = null;
+					startView(new IdleArmiesPanel(model.getPlayer().getControlledArmies(),model.getAvailableCities(),model.getPlayer().getControlledCities()));
+				} catch (MaxCapacityException e1) {
+					JOptionPane.showMessageDialog(view, e1.getMessage() ,
+				               "Error!", JOptionPane.ERROR_MESSAGE);
+					selectedUnit.setBackground(this.defaultbgcolor);
+					selectedUnit.setForeground(this.defaultfgcolor);
+					selectedUnit = null;
+				}
+				catch(NullPointerException np){
+					JOptionPane.showMessageDialog(view, "Please Try Again" ,
+				               "Error!", JOptionPane.ERROR_MESSAGE);
+					selectedUnit.setBackground(this.defaultbgcolor);
+					selectedUnit.setForeground(this.defaultfgcolor);
+					selectedUnit = null;
+					
+				} catch(ArrayIndexOutOfBoundsException e1){
+					JOptionPane.showMessageDialog(view, "Must initiate a controlled army first" ,
+				               "Error!", JOptionPane.ERROR_MESSAGE);
+					selectedUnit.setBackground(this.defaultbgcolor);
+					selectedUnit.setForeground(this.defaultfgcolor);
+					selectedUnit = null;
+				}
+				
+			}
+		}
+		else if(typeOfButton .equalsIgnoreCase("end turn")){
+			model.endTurn();
+			this.updatePlayerInfoBar();
+		}
+		
+		
+		
+		
+		
+		
 		else if(typeOfButton.equalsIgnoreCase("Cairo")){
 			view.setmainPanel(new CairoViewPanel());
 		}

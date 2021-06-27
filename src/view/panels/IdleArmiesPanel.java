@@ -72,7 +72,7 @@ public class IdleArmiesPanel extends ImagePanel implements PressableArmy {
 				} else {
 					panelConstraint.gridx++;
 				}
-				armyPanels.add(new ArmyPanel(a, "Idle"));
+				armyPanels.add(new ArmyPanel(a, "Idle",false));
 			}
 		}
 		for (City c : controlledCities) {
@@ -91,7 +91,7 @@ public class IdleArmiesPanel extends ImagePanel implements PressableArmy {
 				} else {
 					panelConstraint.gridx++;
 				}
-				armyPanels.add(new ArmyPanel(a, "Idle"));
+				armyPanels.add(new ArmyPanel(a, "Idle",true));
 			}
 		}
 		JButton backButton = new JButton("Back");
@@ -153,7 +153,7 @@ public class IdleArmiesPanel extends ImagePanel implements PressableArmy {
 		armies.add(g);
 		armies.add(h);
 //		 IdleArmiesPanel p = new IdleArmiesPanel(armies);
-		ArmyPanel p = new ArmyPanel(a, a.getCurrentStatus().toString());
+		ArmyPanel p = new ArmyPanel(a, a.getCurrentStatus().toString(),true);
 		MainGameFrame frame = new MainGameFrame();
 		frame.setmainPanel(p);
 		frame.revalidate();

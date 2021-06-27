@@ -63,7 +63,7 @@ public class MarchingArmiesPanel extends ImagePanel implements PressableArmy{
 					} else {
 						panelConstraint.gridx++;
 					}
-					armyPanels.add(new ArmyPanel(a,"Marching"));
+					armyPanels.add(new ArmyPanel(a,"Marching",false));
 				}
 				
 			}

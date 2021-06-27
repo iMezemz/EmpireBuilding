@@ -1,34 +1,32 @@
 package view.panels;
 
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import units.Army;
 import units.Unit;
 
 @SuppressWarnings("serial")
-public class ArmyPanel extends ImagePanel {
+public class ArmyPanel extends ImagePanel implements PressableUnit {
 	private ArrayList<JButton> units;
 	private JButton initiateArmy, relocateUnit;
 	private ArrayList<JButton> allButtons;
-
+	private ArrayList<Unit> unitArray;
+	
 	public ArrayList<JButton> getAllButtons() {
 		return allButtons;
 	}
 
-	public ArmyPanel(Army army,String armyStatus) {
+	public ArmyPanel(Army army,String armyStatus,boolean defending) {
 		super("images/"+armyStatus.toLowerCase()+"Armies.png");
 		allButtons = new ArrayList<JButton>();
 		Font loadedFont = null;
@@ -67,22 +65,22 @@ public class ArmyPanel extends ImagePanel {
 			} else {
 				buttons.gridx++;
 			}
-
 		}
-		if(armyStatus.equals("IDLE")){
+		if(armyStatus.equals("Idle") && defending ){
 		buttons.gridx = 0;
 		buttons.gridy++;
 		initiateArmy = new JButton("Initiate Army");
-		initiateArmy.setActionCommand("Initiate Army");
+		initiateArmy.setActionCommand("InitiateArmy");
 		initiateArmy.setFont(loadedFont);
 		allButtons.add(initiateArmy);
 		this.add(initiateArmy, buttons);
 		buttons.gridx++;
 		relocateUnit = new JButton("Relocate Unit");
-		relocateUnit.setActionCommand("Relocate Unit");
+		relocateUnit.setActionCommand("RelocateUnit");
 		relocateUnit.setFont(loadedFont);
 		allButtons.add(relocateUnit);
 		this.add(relocateUnit, buttons);
+		unitArray = army.getUnits();
 		}
 		buttons.gridx = 0;
 		buttons.gridy++;
@@ -94,6 +92,10 @@ public class ArmyPanel extends ImagePanel {
 		this.add(backButton,buttons);
 		
 
+	}
+
+	public ArrayList<Unit> getUnitArray() {
+		return unitArray;
 	}
 
 	public JButton getInitiateArmy() {

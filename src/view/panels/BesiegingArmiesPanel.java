@@ -82,7 +82,7 @@ public class BesiegingArmiesPanel extends ImagePanel implements PressableArmy {
 				} else {
 					panelConstraint.gridx++;
 				}
-				armyPanels.add(new ArmyPanel(a,"Besieging"));
+				armyPanels.add(new ArmyPanel(a,"Besieging",false));
 			}
 		}
 		JButton backButton = new JButton("Back");
