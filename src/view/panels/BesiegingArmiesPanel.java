@@ -85,20 +85,53 @@ public class BesiegingArmiesPanel extends ImagePanel implements PressableArmy {
 				armyPanels.add(new ArmyPanel(a,"Besieging",false));
 			}
 		}
+		
+		
+		JButton attackButton = new JButton("Attack");
+		attackButton.setActionCommand("BackToMapView");
+		panelConstraint.gridx = 0;
+		panelConstraint.gridy++;
+		panelConstraint.gridwidth = 2;
+		panelConstraint.fill = GridBagConstraints.HORIZONTAL;
+		panelConstraint.insets = new Insets(5,5,5,5);
+		attackButton.setFont(loadedFont);
+		attackButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.add(attackButton,panelConstraint);
+	
+		
+
+		JButton breakSeige = new JButton("Break Seige");
+		breakSeige.setActionCommand("BackToMapView");
+		panelConstraint.gridx = 0;
+		panelConstraint.gridy++;
+		panelConstraint.gridwidth = 2;
+		panelConstraint.fill = GridBagConstraints.HORIZONTAL;
+		panelConstraint.insets = new Insets(5,5,5,5);
+		breakSeige.setFont(loadedFont);
+		breakSeige.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		this.add(breakSeige,panelConstraint);
+
+		
+		
 		JButton backButton = new JButton("Back");
 		backButton.setActionCommand("BackToMapView");
 		panelConstraint.gridx = 0;
 		panelConstraint.gridy++;
 		panelConstraint.gridwidth = 2;
 		panelConstraint.fill = GridBagConstraints.HORIZONTAL;
-		panelConstraint.insets = new Insets(35,35,35,35);
+		panelConstraint.insets = new Insets(5,5,5,5);
 		backButton.setFont(loadedFont);
 		backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.add(backButton,panelConstraint);
+		
+		
 		allButtons = new ArrayList<JButton>();
 		allButtons.addAll(armyButtons);
+		allButtons.add(attackButton);
+		allButtons.add(breakSeige);
 		allButtons.add(backButton);
-
+		
+		
 	}
 
 	public ArrayList<ArmyPanel> getArmyPanels() {
