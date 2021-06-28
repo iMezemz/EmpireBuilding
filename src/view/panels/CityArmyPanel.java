@@ -5,7 +5,6 @@ import java.awt.FontFormatException;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,20 +13,24 @@ import javax.swing.JButton;
 
 import units.Army;
 import units.Unit;
+public class CityArmyPanel extends ImagePanel implements PressableUnit, CarriesCityName {
+	public String getCityName() {
+		return cityName;
+	}
 
-@SuppressWarnings("serial")
-public class ArmyPanel extends ImagePanel implements PressableUnit {
 	private ArrayList<JButton> units;
 	private JButton initiateArmy, relocateUnit;
 	private ArrayList<JButton> allButtons;
 	private ArrayList<Unit> unitArray;
+	private String cityName;
 	
 	public ArrayList<JButton> getAllButtons() {
 		return allButtons;
 	}
 
-	public ArmyPanel(Army army,String armyStatus,boolean defending) {
-		super("images/"+armyStatus.toLowerCase()+"Armies.png");
+	public CityArmyPanel(Army army,String currentLocation,boolean defending) {
+		super("images/"+currentLocation.toLowerCase()+"CityView.png");
+		this.cityName = currentLocation;
 		allButtons = new ArrayList<JButton>();
 		Font loadedFont = null;
 		try {
@@ -39,7 +42,7 @@ public class ArmyPanel extends ImagePanel implements PressableUnit {
 		}
 		JButton backButton = new JButton("Back");
 		backButton.setText("Back");
-		backButton.setActionCommand("BackTo"+army.getCurrentStatus().toString());
+		backButton.setActionCommand("gotocityarmiespanel");
 		backButton.setBounds(0,0,100,100);
 		
 		units = new ArrayList<JButton>();
@@ -66,7 +69,7 @@ public class ArmyPanel extends ImagePanel implements PressableUnit {
 				buttons.gridx++;
 			}
 		}
-		if(armyStatus.equalsIgnoreCase("Idle") && defending ){
+		if( defending ){
 		buttons.gridx = 0;
 		buttons.gridy++;
 		initiateArmy = new JButton("Initiate Army");
@@ -95,20 +98,10 @@ public class ArmyPanel extends ImagePanel implements PressableUnit {
 
 	}
 
-	public ArrayList<Unit> getUnitArray() {
-		return unitArray;
-	}
-
-	public JButton getInitiateArmy() {
-		return initiateArmy;
-	}
-
-	public JButton getRelocateUnit() {
-		return relocateUnit;
-	}
-
 	public ArrayList<JButton> getUnits() {
 		return units;
 	}
 
-}
+	public ArrayList<Unit> getUnitArray() {
+		return unitArray;
+	}}

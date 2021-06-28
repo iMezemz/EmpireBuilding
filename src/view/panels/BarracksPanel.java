@@ -16,17 +16,22 @@ import buildings.Barracks;
 import buildings.MilitaryBuilding;
 import view.frames.MainGameFrame;
 
-public class BarracksPanel extends ImagePanel implements Pressable {
+public class BarracksPanel extends ImagePanel implements Pressable,CarriesCityName {
 	
+	public String getCityName() {
+		return cityName;
+	}
 	ArrayList<JButton> allButtons;
 	ArrayList<MilitaryBuilding> militaryBuildingsArray;
 	JButton upgradeButton , recruitButton, buyButton;
 	JTextArea barracksInfo;
+	String cityName;
 
 
 	public BarracksPanel (String currentLocation , ArrayList<MilitaryBuilding> militaryBuildingsArray) {
 		super("images/"+ currentLocation.toLowerCase() + "CityView.png");
 		Font loadedFont = null;
+		this.cityName = currentLocation;
 		try {
 			loadedFont = Font.createFont(Font.TRUETYPE_FONT,
 					new File("fonts/mainFont.ttf")).deriveFont(12.3f);
@@ -73,7 +78,7 @@ public class BarracksPanel extends ImagePanel implements Pressable {
 		recruitButton = new JButton("Recruit");
 		recruitButton.setFont(loadedFont);
 		recruitButton.setBounds(320,440,130,50);
-		recruitButton.setActionCommand("recruitunitbarracks");
+		recruitButton.setActionCommand("recruitunit");
 		this.add(recruitButton);
 		allButtons.add(recruitButton);
 		
@@ -87,7 +92,7 @@ public class BarracksPanel extends ImagePanel implements Pressable {
 		buyButton = new JButton("Buy");
 		buyButton.setFont(loadedFont);
 		buyButton.setBounds(335,440,100,50);
-		buyButton.setActionCommand("buyunit");
+		buyButton.setActionCommand("buybarracks");
 		this.add(buyButton);
 		allButtons.add(buyButton);
 		

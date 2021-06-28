@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 
-public class CityViewPanel extends ImagePanel implements Pressable{
+public class CityViewPanel extends ImagePanel implements Pressable,CarriesCityName{
 	
 	JTextArea archeryRangeInfo, farmInfo, barracksInfo, marketInfo, stableInfo;
 	JButton militaryBuildingsButton, economicalBuildingsButton, cityArmiesButton;
@@ -58,17 +58,24 @@ public class CityViewPanel extends ImagePanel implements Pressable{
 		cityArmiesButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		cityArmiesButton.setBounds(530, 435, 180, 50);
 		cityArmiesButton.setActionCommand("CityArmiesbutton");
+		JButton endTurn = new JButton("End Turn");
+		endTurn.setFont(loadedFont);
+		endTurn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		endTurn.setBounds(110, 355, 180 ,50);
+		endTurn.setActionCommand("End Turn");
 		
 		
 		this.add(cityArmiesButton);
 		this.add(economicalBuildingsButton);
 		this.add(militaryBuildingsButton);
 		this.add(backButton);
+		this.add(endTurn);
 		
 		allButtons.add(militaryBuildingsButton);
 		allButtons.add(economicalBuildingsButton);
 		allButtons.add(cityArmiesButton);
 		allButtons.add(backButton);
+		allButtons.add(endTurn);
 		
 		
 	}

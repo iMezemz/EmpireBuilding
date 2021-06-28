@@ -17,16 +17,18 @@ import buildings.Barracks;
 import buildings.MilitaryBuilding;
 import view.frames.MainGameFrame;
 
-public class ArcheryRangePanel extends ImagePanel implements Pressable {
+public class ArcheryRangePanel extends ImagePanel implements Pressable,CarriesCityName {
 	
 	ArrayList<JButton> allButtons;
 	ArrayList<MilitaryBuilding> militaryBuildingsArray;
 	JButton upgradeButton , recruitButton, buyButton;
 	JTextArea archeryRangeInfo;
+	String cityName;
 
 
 	public ArcheryRangePanel (String currentLocation , ArrayList<MilitaryBuilding> militaryBuildingsArray) {
 		super("images/"+ currentLocation.toLowerCase() + "CityView.png");
+		this.cityName = currentLocation;
 		Font loadedFont = null;
 		try {
 			loadedFont = Font.createFont(Font.TRUETYPE_FONT,
@@ -67,7 +69,7 @@ public class ArcheryRangePanel extends ImagePanel implements Pressable {
 		upgradeButton = new JButton("Upgrade");
 		upgradeButton.setFont(loadedFont);
 		upgradeButton.setBounds(180,440,100,50);
-		upgradeButton.setActionCommand("upgradeunit");
+		upgradeButton.setActionCommand("upgradearcheryrange");
 		this.add(upgradeButton);
 		allButtons.add(upgradeButton);
 		
@@ -88,7 +90,7 @@ public class ArcheryRangePanel extends ImagePanel implements Pressable {
 		buyButton = new JButton("Buy");
 		buyButton.setFont(loadedFont);
 		buyButton.setBounds(335,440,100,50);
-		buyButton.setActionCommand("buyunit");
+		buyButton.setActionCommand("buyarcheryrange");
 		this.add(buyButton);
 		allButtons.add(buyButton);
 		
@@ -112,6 +114,13 @@ public class ArcheryRangePanel extends ImagePanel implements Pressable {
 		x.add(new ArcheryRange());
 		frame.setmainPanel(new ArcheryRangePanel("Sparta" , x  ));
 	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	
+	
 }
 		
 

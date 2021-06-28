@@ -17,16 +17,18 @@ import buildings.MilitaryBuilding;
 import buildings.Stable;
 import view.frames.MainGameFrame;
 
-public class StablePanel extends ImagePanel implements Pressable {
+public class StablePanel extends ImagePanel implements Pressable, CarriesCityName {
 	
 	ArrayList<JButton> allButtons;
 	ArrayList<MilitaryBuilding> militaryBuildingsArray;
 	JButton upgradeButton , recruitButton, buyButton;
 	JTextArea StableInfo;
+	String cityName;
 
 
 	public StablePanel (String currentLocation , ArrayList<MilitaryBuilding> militaryBuildingsArray) {
 		super("images/"+ currentLocation.toLowerCase() + "CityView.png");
+		this.cityName = currentLocation;
 		Font loadedFont = null;
 		try {
 			loadedFont = Font.createFont(Font.TRUETYPE_FONT,
@@ -67,7 +69,7 @@ public class StablePanel extends ImagePanel implements Pressable {
 		upgradeButton = new JButton("Upgrade");
 		upgradeButton.setFont(loadedFont);
 		upgradeButton.setBounds(180,440,100,50);
-		upgradeButton.setActionCommand("upgradeunit");
+		upgradeButton.setActionCommand("upgradestable");
 		this.add(upgradeButton);
 		allButtons.add(upgradeButton);
 		
@@ -88,7 +90,7 @@ public class StablePanel extends ImagePanel implements Pressable {
 		buyButton = new JButton("Buy");
 		buyButton.setFont(loadedFont);
 		buyButton.setBounds(335,440,100,50);
-		buyButton.setActionCommand("buyunit");
+		buyButton.setActionCommand("buystable");
 		this.add(buyButton);
 		allButtons.add(buyButton);
 		
@@ -103,6 +105,10 @@ public class StablePanel extends ImagePanel implements Pressable {
 		
 	}
 
+	public String getCityName() {
+		return cityName;
+	}
+
 	public ArrayList<JButton> getAllButtons() {
 		return allButtons;
 	}
@@ -112,6 +118,8 @@ public class StablePanel extends ImagePanel implements Pressable {
 		x.add(new Stable());
 		frame.setmainPanel(new StablePanel("Rome" , x  ));
 	}
+
+	
 }
 		
 

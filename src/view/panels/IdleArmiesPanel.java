@@ -51,13 +51,13 @@ public class IdleArmiesPanel extends ImagePanel implements PressableArmy {
 		for (Army a : armies) {
 			if (a.getCurrentStatus() == Status.IDLE) {
 				b = new JButton();
-				if (a.getCurrentLocation().equals("Cairo")) {
+				if (a.getCurrentLocation().equalsIgnoreCase("Cairo")) {
 					cairoCount++;
 					b.setText(a.getCurrentLocation() + " " + cairoCount);
-				} else if (a.getCurrentLocation().equals("Rome")) {
+				} else if (a.getCurrentLocation().equalsIgnoreCase("Rome")) {
 					romeCount++;
 					b.setText(a.getCurrentLocation() + " " + romeCount);
-				} else {
+				} else if(a.getCurrentLocation().equalsIgnoreCase("Sparta")){
 					spartaCount++;
 					b.setText(a.getCurrentLocation() + " " + spartaCount);
 				}
