@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.Color;
+import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -46,6 +47,7 @@ import view.panels.CityControlledArmiesPanel;
 import view.panels.CityViewPanel;
 import view.panels.EconomicalBuildingsPanel;
 import view.panels.FarmPanel;
+import view.panels.GameOverPanel;
 import view.panels.IdleArmiesPanel;
 import view.panels.ImagePanel;
 import view.panels.MarchingArmiesPanel;
@@ -254,6 +256,21 @@ public class GameController implements ActionListener, MouseListener {
 
 			}
 		} else if (typeOfButton.equalsIgnoreCase("end turn")) {
+			if (model.getCurrentTurnCount() == model.getMaxTurnCount() && model.getAvailableCities().size() 
+					!= model.getPlayer().getControlledCities().size()) {
+				GameOverPanel gameOverPanel = null;
+				try {
+					gameOverPanel = new GameOverPanel();
+					gameOverPanel.getClose().addActionListener(this);
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				gameOverPanel.getGameResult().append("You Lost!");
+				view.getContentPane().removeAll();
+				view.setmainPanel(gameOverPanel);
+			}
+			
 			ArrayList<City> targets = new ArrayList<City>();
 			for (Army a : this.armiesMarchingToTarget) {
 				for (City c : model.getAvailableCities()) {
@@ -285,6 +302,20 @@ public class GameController implements ActionListener, MouseListener {
 							model.occupy(a, targets.get(i).getName());
 							JOptionPane.showMessageDialog(view,
 									"You successfully occupied the city ");
+							if(model.getPlayer().getControlledArmies().size()== 
+									model.getAvailableCities().size()) {
+								GameOverPanel gameOverPanel = null;
+								try {
+									gameOverPanel = new GameOverPanel();
+									gameOverPanel.getClose().addActionListener(this);
+								} catch (FontFormatException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								gameOverPanel.getGameResult().append("You Won!");
+								view.getContentPane().removeAll();
+								view.setmainPanel(gameOverPanel);
+							}
 						} else {
 							runningLog = "";
 							Attack(a, targets.get(i).getDefendingArmy());
@@ -789,6 +820,9 @@ public class GameController implements ActionListener, MouseListener {
 								"Please choose an attacking unit and a defending unit to initiate an attack",
 								"Error!", JOptionPane.ERROR_MESSAGE);
 			}
+		}
+		else if (typeOfButton.equalsIgnoreCase("dispose")) {
+			view.dispose();
 		}
 		
 

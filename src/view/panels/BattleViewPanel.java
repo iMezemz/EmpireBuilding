@@ -40,33 +40,7 @@ public class BattleViewPanel extends ImagePanel implements Pressable {
 	
 	GridBagConstraints buttons = new GridBagConstraints();
 
-	// old loop as reference
 
-	// this.setLayout(new GridBagLayout());
-	// GridBagConstraints buttons = new GridBagConstraints();
-	//
-
-	// buttons.insets = new Insets(0,0,0,0);
-	// buttons.gridx = 0;
-	// buttons.gridy = 1;
-	// buttons.gridwidth = 1;
-	// buttons.fill = GridBagConstraints.HORIZONTAL;
-	// for (Unit u : army.getUnits()) {
-	// JButton b = new JButton(u.toString());
-	// units.add(b);
-	// allButtons.add(b);
-	// b.setFont(loadedFont);
-	// b.setActionCommand("UnitButton");
-	// this.add(b, buttons);
-	// if (buttons.gridx == 1) {
-	// buttons.gridx = 0;
-	// buttons.gridy++;
-	// } else {
-	// buttons.gridx++;
-	// }
-	//
-	// }
-	//
 	public BattleViewPanel(ArrayList<Unit> defendingArmyUnits,
 			ArrayList<Unit> attackingArmyUnits) {
 		super("images/battleViewBackground.png");
@@ -133,7 +107,7 @@ public class BattleViewPanel extends ImagePanel implements Pressable {
 			this.add(scroll);
 			JTextArea logLabel = new JTextArea("Battle Log");
 			logLabel.setFont(largerLoadedFont);
-			logLabel.setBounds(610, 30, 200, 40);
+			logLabel.setBounds(610, 50, 200, 40);
 			logLabel.setForeground(Color.WHITE);
 			logLabel.setOpaque(false);
 			logLabel.setEditable(false);
@@ -153,7 +127,7 @@ public class BattleViewPanel extends ImagePanel implements Pressable {
 			// ARMY/////////////////////////////////////////////////////////////////
 			JTextArea attackingLabel = new JTextArea("Attacking Army");
 			attackingLabel.setFont(largerLoadedFont);
-			attackingLabel.setBounds(205, 510, 200, 40);
+			attackingLabel.setBounds(586, 510, 200, 40);
 			attackingLabel.setForeground(Color.WHITE);
 			attackingLabel.setOpaque(false);
 			attackingLabel.setEditable(false);
@@ -203,7 +177,7 @@ public class BattleViewPanel extends ImagePanel implements Pressable {
 			// ARMY////////////////////////////////////////////////////////////////
 			JTextArea defendingLabel = new JTextArea("Defending Army");
 			defendingLabel.setFont(largerLoadedFont);
-			defendingLabel.setBounds(205, 30, 200, 40);
+			defendingLabel.setBounds(586, 30, 200, 40);
 			defendingLabel.setForeground(Color.WHITE);
 			defendingLabel.setOpaque(false);
 			defendingLabel.setEditable(false);
