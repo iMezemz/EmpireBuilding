@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -21,16 +22,20 @@ import buildings.Stable;
 import engine.City;
 import engine.Game;
 import exceptions.BuildingInCoolDownException;
+import exceptions.FriendlyCityException;
+import exceptions.FriendlyFireException;
 import exceptions.MaxCapacityException;
 import exceptions.MaxLevelException;
 import exceptions.MaxRecruitedException;
 import exceptions.NotEnoughGoldException;
+import exceptions.TargetNotReachedException;
 import units.Archer;
 import units.Army;
 import units.Unit;
 import view.frames.MainGameFrame;
 import view.panels.ArcheryRangePanel;
 import view.panels.ArmyPanel;
+import view.panels.BattleViewPanel;
 import view.panels.CarriesCityName;
 import view.panels.BarracksPanel;
 import view.panels.BesiegingArmiesPanel;
@@ -61,7 +66,9 @@ public class GameController implements ActionListener, MouseListener {
 	private Color defaultbgcolor;
 	private Color defaultfgcolor;
 	private ArrayList<Army> armiesMarchingToTarget;
-	private static String[] actions = {"Attack","Auto Resolve","Lay Seige"};
+	private static String[] actions = { "Attack", "Auto Resolve", "Lay Seige" };
+	private JButton selectedAttackerUnit, selectedDefenderUnit;
+	private String runningLog;
 
 	public GameController(String PlayerName, String PlayerCity)
 			throws IOException {
@@ -101,8 +108,8 @@ public class GameController implements ActionListener, MouseListener {
 		}
 		return false;
 	}
-	private static String askUserForAction(String[] choices,
-			String s) {
+
+	private static String askUserForAction(String[] choices, String s) {
 		String selected = (String) JOptionPane.showInputDialog(null, s,
 				"Choose Action", JOptionPane.PLAIN_MESSAGE, null, choices,
 				choices[0]);
@@ -247,41 +254,97 @@ public class GameController implements ActionListener, MouseListener {
 
 			}
 		} else if (typeOfButton.equalsIgnoreCase("end turn")) {
-			model.endTurn();
-			this.updatePlayerInfoBar();
-			for(Army a : this.armiesMarchingToTarget){
-				if(a.getDistancetoTarget() == 0){
-					City targetedCity = null;
-					for(City c : model.getAvailableCities()){
-						if(a.getTarget().equalsIgnoreCase(c.getName())){
-							targetedCity = c;
-						}
-					}
-					String action = askUserForAction(actions, "Choose an action to perform on the targeted city");
-					if(action.equals("Attack")){
-						Attack(a);
-					}
-					else if(action.equalsIgnoreCase("Auto Resolve")){
-						model.autoResolve(a, targetedCity.getDefendingArmy());
-					}
-					else if(action.equalsIgnoreCase("Lay Seige")){
-						model.getPlayer().laySiege(a,targetedCity);
+			ArrayList<City> targets = new ArrayList<City>();
+			for (Army a : this.armiesMarchingToTarget) {
+				for (City c : model.getAvailableCities()) {
+					if (c.getName().equalsIgnoreCase(a.getTarget())) {
+						targets.add(c);
 					}
 				}
 			}
-			
-			
+			Iterator<Army> iterControlledArmies = model.getPlayer()
+					.getControlledArmies().iterator();
+			while (iterControlledArmies.hasNext()) {
+				Army army = iterControlledArmies.next();
+				if (army.getUnits().size() == 0) {
+					iterControlledArmies.remove();
+				}
+			}
+			model.endTurn();
+			this.updatePlayerInfoBar();
+
+			int i = 0;
+			Iterator<Army> iter = armiesMarchingToTarget.iterator();
+			while (iter.hasNext()) {
+				Army a = iter.next();
+				if ((a.getDistancetoTarget()) == 0) {
+					String action = askUserForAction(actions,
+							"Choose an action to perform on the targeted city");
+					if (action.equals("Attack")) {
+						if (targets.get(i).getDefendingArmy().getUnits().size() == 0) {
+							model.occupy(a, targets.get(i).getName());
+							JOptionPane.showMessageDialog(view,
+									"You successfully occupied the city ");
+						} else {
+							runningLog = "";
+							Attack(a, targets.get(i).getDefendingArmy());
+						}
+					} else if (action.equalsIgnoreCase("Auto Resolve")) {
+						try {
+							model.autoResolve(a, targets.get(i)
+									.getDefendingArmy());
+							if (a.getUnits().size() == 0) {
+								Iterator<Army> iterForRemove = model
+										.getPlayer().getControlledArmies()
+										.iterator();
+								while (iterForRemove.hasNext()) {
+									Army army = iterForRemove.next();
+									if (army.getUnits().size() == 0) {
+										iterForRemove.remove();
+									}
+								}
+								JOptionPane.showMessageDialog(view,
+										"You Lost The Battle");
+							} else {
+								JOptionPane.showMessageDialog(view,
+										"You Won The Battle");
+							}
+						} catch (FriendlyFireException e1) {
+							JOptionPane.showMessageDialog(view,
+									e1.getMessage(), "Error!",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					} else if (action.equalsIgnoreCase("Lay Seige")) {
+						try {
+							model.getPlayer().laySiege(a, targets.get(i));
+						} catch (TargetNotReachedException
+								| FriendlyCityException e1) {
+							JOptionPane.showMessageDialog(view,
+									e1.getMessage(), "Error!",
+									JOptionPane.ERROR_MESSAGE);
+						}
+					}
+					iter.remove();
+				}
+
+				i++;
+
+			}
+
 		} else if (typeOfButton.equalsIgnoreCase("targetCity")) {
 			Army toAttack = null;
 			City c = null;
 			try {
 				ArrayList<Army> idleArmies = new ArrayList<Army>();
-				for(Army a : model.getPlayer().getControlledArmies()){
-					if(a.getCurrentStatus().toString().equalsIgnoreCase("idle")){
+				for (Army a : model.getPlayer().getControlledArmies()) {
+					if (a.getCurrentStatus().toString()
+							.equalsIgnoreCase("idle")) {
 						idleArmies.add(a);
 					}
 				}
-				toAttack = askUserForArmy(idleArmies, "Select an army to attack with (Armies are ordered in the same order as shown in view)");
+				toAttack = askUserForArmy(
+						idleArmies,
+						"Select an army to attack with (Armies are ordered in the same order as shown in view)");
 				ArrayList<City> availableForAttackCities = (ArrayList<City>) model
 						.getAvailableCities().clone();
 				availableForAttackCities.removeAll(model.getPlayer()
@@ -488,14 +551,18 @@ public class GameController implements ActionListener, MouseListener {
 						myEconomicBuildings = c.getEconomicalBuildings();
 						for (EconomicBuilding b : myEconomicBuildings) {
 							if (b instanceof Farm) {
-								b.upgrade();
+								model.getPlayer().upgradeBuilding(b);
 							}
 						}
 					}
 				}
 				this.startView(new FarmPanel(currentView.getCityName(),
 						myEconomicBuildings));
+				this.updatePlayerInfoBar();
 			} catch (BuildingInCoolDownException | MaxLevelException e1) {
+				JOptionPane.showMessageDialog(view, e1.getMessage(), "Error!",
+						JOptionPane.ERROR_MESSAGE);
+			} catch (NotEnoughGoldException e1) {
 				JOptionPane.showMessageDialog(view, e1.getMessage(), "Error!",
 						JOptionPane.ERROR_MESSAGE);
 			}
@@ -508,14 +575,15 @@ public class GameController implements ActionListener, MouseListener {
 						myEconomicBuildings = c.getEconomicalBuildings();
 						for (EconomicBuilding b : myEconomicBuildings) {
 							if (b instanceof Market) {
-								b.upgrade();
+								model.getPlayer().upgradeBuilding(b);
 							}
 						}
 					}
 				}
 				this.startView(new MarketPanel(currentView.getCityName(),
 						myEconomicBuildings));
-			} catch (BuildingInCoolDownException | MaxLevelException e1) {
+				this.updatePlayerInfoBar();
+			} catch (BuildingInCoolDownException | MaxLevelException | NotEnoughGoldException e1) {
 				JOptionPane.showMessageDialog(view, e1.getMessage(), "Error!",
 						JOptionPane.ERROR_MESSAGE);
 			}
@@ -545,14 +613,14 @@ public class GameController implements ActionListener, MouseListener {
 						myMilitaryBuildings = c.getMilitaryBuildings();
 						for (MilitaryBuilding b : myMilitaryBuildings) {
 							if (b instanceof Barracks) {
-								b.upgrade();
+								model.getPlayer().upgradeBuilding(b);
 							}
 						}
 					}
 				}
 				this.startView(new BarracksPanel(currentView.getCityName(),
 						myMilitaryBuildings));
-			} catch (BuildingInCoolDownException | MaxLevelException e1) {
+			} catch (BuildingInCoolDownException | MaxLevelException | NotEnoughGoldException e1) {
 				JOptionPane.showMessageDialog(view, e1.getMessage(), "Error!",
 						JOptionPane.ERROR_MESSAGE);
 			}
@@ -566,14 +634,14 @@ public class GameController implements ActionListener, MouseListener {
 						myMilitaryBuildings = c.getMilitaryBuildings();
 						for (MilitaryBuilding b : myMilitaryBuildings) {
 							if (b instanceof ArcheryRange) {
-								b.upgrade();
+								model.getPlayer().upgradeBuilding(b);
 							}
 						}
 					}
 				}
 				this.startView(new ArcheryRangePanel(currentView.getCityName(),
 						myMilitaryBuildings));
-			} catch (BuildingInCoolDownException | MaxLevelException e1) {
+			} catch (BuildingInCoolDownException | MaxLevelException | NotEnoughGoldException e1) {
 				JOptionPane.showMessageDialog(view, e1.getMessage(), "Error!",
 						JOptionPane.ERROR_MESSAGE);
 			}
@@ -586,14 +654,14 @@ public class GameController implements ActionListener, MouseListener {
 						myMilitaryBuildings = c.getMilitaryBuildings();
 						for (MilitaryBuilding b : myMilitaryBuildings) {
 							if (b instanceof Stable) {
-								b.upgrade();
+								model.getPlayer().upgradeBuilding(b);
 							}
 						}
 					}
 				}
 				this.startView(new StablePanel(currentView.getCityName(),
 						myMilitaryBuildings));
-			} catch (BuildingInCoolDownException | MaxLevelException e1) {
+			} catch (BuildingInCoolDownException | MaxLevelException | NotEnoughGoldException e1) {
 				JOptionPane.showMessageDialog(view, e1.getMessage(), "Error!",
 						JOptionPane.ERROR_MESSAGE);
 			}
@@ -613,11 +681,122 @@ public class GameController implements ActionListener, MouseListener {
 			String cityName = ((CarriesCityName) view.getmainPanel())
 					.getCityName();
 			this.startView(new CityArmiesPanel(cityName));
-		}
-		else if (typeOfButton.equalsIgnoreCase("gotocontrolledarmies")){
+		} else if (typeOfButton.equalsIgnoreCase("gotocontrolledarmies")) {
 			CarriesCityName currentView = (CarriesCityName) view.getmainPanel();
-			this.startView(new CityControlledArmiesPanel(currentView.getCityName(),model.getPlayer().getControlledArmies()));
+			this.startView(new CityControlledArmiesPanel(currentView
+					.getCityName(), model.getPlayer().getControlledArmies()));
+		} else if (typeOfButton.equalsIgnoreCase("defendingUnitButton")) {
+			if (selectedDefenderUnit == null) {
+				selectedDefenderUnit = buttonClicked;
+				this.defaultbgcolor = buttonClicked.getBackground();
+				this.defaultfgcolor = buttonClicked.getForeground();
+				buttonClicked.setBackground(Color.GREEN);
+				buttonClicked.setForeground(Color.WHITE);
+			} else if (selectedDefenderUnit == buttonClicked) {
+				buttonClicked.setBackground(this.defaultbgcolor);
+				buttonClicked.setForeground(this.defaultfgcolor);
+				selectedDefenderUnit = null;
+			} else {
+				selectedDefenderUnit.setBackground(this.defaultbgcolor);
+				selectedDefenderUnit.setForeground(this.defaultfgcolor);
+				selectedDefenderUnit = buttonClicked;
+				buttonClicked.setBackground(Color.GREEN);
+				buttonClicked.setForeground(Color.WHITE);
+			}
+		} else if (typeOfButton.equalsIgnoreCase("attackingUnitButton")) {
+			if (selectedAttackerUnit == null) {
+				selectedAttackerUnit = buttonClicked;
+				this.defaultbgcolor = buttonClicked.getBackground();
+				this.defaultfgcolor = buttonClicked.getForeground();
+				buttonClicked.setBackground(Color.RED);
+				buttonClicked.setForeground(Color.WHITE);
+			} else if (selectedAttackerUnit == buttonClicked) {
+				buttonClicked.setBackground(this.defaultbgcolor);
+				buttonClicked.setForeground(this.defaultfgcolor);
+				selectedAttackerUnit = null;
+			} else {
+				selectedAttackerUnit.setBackground(this.defaultbgcolor);
+				selectedAttackerUnit.setForeground(this.defaultfgcolor);
+				selectedAttackerUnit = buttonClicked;
+				buttonClicked.setBackground(Color.RED);
+				buttonClicked.setForeground(Color.WHITE);
+			}
+		} else if (typeOfButton.equalsIgnoreCase("startattack")) {
+			
+			if (selectedAttackerUnit != null && selectedDefenderUnit != null) {
+				BattleViewPanel currentView = (BattleViewPanel) view
+						.getmainPanel();
+				Unit attackingUnit = currentView.getAttackingUnits().get(
+						currentView.getAttackingArmyButtons().indexOf(
+								selectedAttackerUnit));
+				Unit defendingUnit = currentView.getDefendingUnits().get(
+						currentView.getDefendingArmyButtons().indexOf(
+								selectedDefenderUnit));
+				int oldDefendingHealth = defendingUnit.getCurrentSoldierCount();
+				
+				try {
+					attackingUnit.attack(defendingUnit);
+					runningLog+=attackingUnit.toString()+" Attacked "+ defendingUnit.toString() + " and the defending unit lost "+ (oldDefendingHealth-defendingUnit.getCurrentSoldierCount()) + " Soldiers" + "\n";
+					ArrayList<Unit> defendingUnits = currentView.getDefendingUnits();
+					ArrayList<Unit> attackingUnits = currentView.getAttackingUnits();
+					attackingUnit = attackingUnits.get((int)Math.random()*attackingUnits.size());
+					defendingUnit = defendingUnits.get((int)Math.random()*defendingUnits.size());
+					int oldAttackingHealth = attackingUnit.getCurrentSoldierCount();
+					defendingUnit.attack(attackingUnit);
+					runningLog+=defendingUnit.toString()+" Attacked "+ attackingUnit.toString() + " and the defending unit lost "+ (oldAttackingHealth-attackingUnit.getCurrentSoldierCount()) + " Soldiers" + "\n";
+					BattleViewPanel p = new BattleViewPanel(
+							currentView.getDefendingUnits(),
+							currentView.getAttackingUnits());
+					if(defendingUnits.size()>0 && attackingUnits.size()>0 ){
+						p.getLog().setText(runningLog);
+					}
+					if(defendingUnits.size()>0 && attackingUnits.size()==0 ){
+						Iterator<Army> iterForRemove = model
+								.getPlayer().getControlledArmies()
+								.iterator();
+						while (iterForRemove.hasNext()) {
+							Army army = iterForRemove.next();
+							if (army.getUnits().size() == 0) {
+								iterForRemove.remove();
+							}
+						}
+					}
+					else if(defendingUnits.size()==0 && attackingUnits.size()>0 ){
+						model.occupy(attackingUnits.get(0).getParentArmy(), attackingUnits.get(0).getParentArmy().getCurrentLocation());
+					}
+					startView(p);
+					selectedAttackerUnit = null;
+					selectedDefenderUnit = null;
+					
+				} catch (FriendlyFireException e1) {
+					JOptionPane.showMessageDialog(view, e1.getMessage(),
+							"Error!", JOptionPane.ERROR_MESSAGE);
+				}
+			} else if (selectedAttackerUnit == null
+					&& selectedDefenderUnit != null) {
+				JOptionPane.showMessageDialog(view,
+						"Please choose an attacking unit", "Error!",
+						JOptionPane.ERROR_MESSAGE);
+			} else if (selectedAttackerUnit != null
+					&& selectedDefenderUnit == null) {
+				JOptionPane.showMessageDialog(view,
+						"Please choose a defending unit to attack", "Error!",
+						JOptionPane.ERROR_MESSAGE);
+			} else {
+				JOptionPane
+						.showMessageDialog(
+								view,
+								"Please choose an attacking unit and a defending unit to initiate an attack",
+								"Error!", JOptionPane.ERROR_MESSAGE);
+			}
 		}
+		
+
+	}
+
+	private void Attack(Army attackerArmy, Army defendingArmy) {
+		this.startView(new BattleViewPanel(defendingArmy.getUnits(),
+				attackerArmy.getUnits()));
 	}
 
 	@Override
