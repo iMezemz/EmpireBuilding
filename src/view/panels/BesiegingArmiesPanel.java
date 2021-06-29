@@ -88,7 +88,7 @@ public class BesiegingArmiesPanel extends ImagePanel implements PressableArmy {
 		
 		
 		JButton attackButton = new JButton("Attack");
-		attackButton.setActionCommand("BackToMapView");
+		attackButton.setActionCommand("attackfromsiege");
 		panelConstraint.gridx = 0;
 		panelConstraint.gridy++;
 		panelConstraint.gridwidth = 2;
@@ -101,7 +101,7 @@ public class BesiegingArmiesPanel extends ImagePanel implements PressableArmy {
 		
 
 		JButton breakSeige = new JButton("Break Seige");
-		breakSeige.setActionCommand("BackToMapView");
+		breakSeige.setActionCommand("breakseige");
 		panelConstraint.gridx = 0;
 		panelConstraint.gridy++;
 		panelConstraint.gridwidth = 2;
