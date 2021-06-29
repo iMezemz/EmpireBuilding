@@ -134,6 +134,7 @@ public class Player {
 		army.setCurrentStatus(Status.BESIEGING);
 		city.setUnderSiege(true);
 		city.setTurnsUnderSiege(0);
+		army.setDistancetoTarget(-1);
 	}
 
 	public double getTreasury() {
