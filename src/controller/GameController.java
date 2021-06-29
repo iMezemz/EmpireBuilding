@@ -32,6 +32,7 @@ import exceptions.NotEnoughGoldException;
 import exceptions.TargetNotReachedException;
 import units.Archer;
 import units.Army;
+import units.Status;
 import units.Unit;
 import view.frames.MainGameFrame;
 import view.panels.ArcheryRangePanel;
@@ -365,7 +366,7 @@ public class GameController implements ActionListener, MouseListener {
 			
 			for(Army a : model.getPlayer().getControlledArmies()){
 				if(a.getCurrentStatus().toString().equalsIgnoreCase("BESIEGING") && getCityByName(a.getCurrentLocation()).getTurnsUnderSiege() == 3){
-					JOptionPane.showMessageDialog(view, "", "", arg3);
+					JOptionPane.showMessageDialog(view, "Battling sieged city since you exceeded 3 turns without taking an action", "Alert!", JOptionPane.PLAIN_MESSAGE);
 					Attack(a,getCityByName(a.getCurrentLocation()).getDefendingArmy());
 				}
 			}
@@ -375,6 +376,7 @@ public class GameController implements ActionListener, MouseListener {
 			City c = null;
 			try {
 				ArrayList<Army> idleArmies = new ArrayList<Army>();
+				boolean checkIfOkToTarget = true;
 				for (Army a : model.getPlayer().getControlledArmies()) {
 					if (a.getCurrentStatus().toString()
 							.equalsIgnoreCase("idle") && !armiesMarchingToTarget.contains(a)) {
@@ -389,10 +391,21 @@ public class GameController implements ActionListener, MouseListener {
 				availableForAttackCities.removeAll(model.getPlayer()
 						.getControlledCities());
 				c = askUserForCityToConequer(availableForAttackCities);
+				for(Army a : armiesMarchingToTarget){
+					if(a.getTarget().equalsIgnoreCase(c.getName())){
+						checkIfOkToTarget = false;
+					}
+				}
+				if(checkIfOkToTarget){
 				model.targetCity(toAttack, c.getName());
 				this.updatePlayerInfoBar();
 				armiesMarchingToTarget.add(toAttack);
-
+				}
+				else{
+					JOptionPane.showMessageDialog(view,
+							"City already targeted, please wait and one of your marching armies will reach it soon...", "Error!",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			} catch (ArrayIndexOutOfBoundsException e1) {
 				JOptionPane.showMessageDialog(view,
 						"No initiated armies to attack with", "Error!",
@@ -863,6 +876,32 @@ public class GameController implements ActionListener, MouseListener {
 				for (City c : model.getAvailableCities()) {
 					if (toAttack.getCurrentLocation().equalsIgnoreCase(c.getName())) {
 						Attack(toAttack,c.getDefendingArmy());
+					}
+				}
+			} catch (ArrayIndexOutOfBoundsException e1) {
+				JOptionPane.showMessageDialog(view,
+						"Armies preparing to seige...", "Error!",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+		}
+		else if (typeOfButton.equalsIgnoreCase("breakseige")) {
+			ArrayList<Army> currentlyBesieging = new ArrayList<Army>();
+			for (Army a : model.getPlayer().getControlledArmies()) {
+				if (a.getCurrentStatus().toString().equalsIgnoreCase("BESIEGING")) {
+					currentlyBesieging.add(a);
+				}
+			}
+			try {
+				Army toBreakSiege = askUserForArmy(currentlyBesieging,
+						"Choose the army that you want to break the siege...");
+				
+				for(Army a : model.getPlayer().getControlledArmies()){
+					if(a == toBreakSiege){
+						getCityByName(a.getCurrentLocation()).setTurnsUnderSiege(-1);
+						getCityByName(a.getCurrentLocation()).setUnderSiege(false);
+						a.setCurrentStatus(Status.IDLE);
+						this.startView(new BesiegingArmiesPanel(model.getPlayer().getControlledArmies(), model.getAvailableCities()));
 					}
 				}
 			} catch (ArrayIndexOutOfBoundsException e1) {
